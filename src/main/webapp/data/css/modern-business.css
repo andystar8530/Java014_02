@@ -1,0 +1,53 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/templates/modern-business)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+ *{
+   text-decoration: none;
+ }
+body {
+  padding-top: 56px;
+}
+header{
+  /* margin: 10px; */
+}
+/*輪播圖片的div*/
+.carousel-item{
+  height:70vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.carousel-item 
+.portfolio-item {
+  margin-bottom: 30px;
+}
+.list-group-item{
+  /* 手指圖案 */
+  cursor:pointer; 
+
+}
+.list-group-item:hover{
+  background-color: #d6e2e9;
+}
+
+.sidebar-item{
+  text-align: center;
+  padding: 10px;;
+  display: none;
+}
+.partnerInfo{
+  margin: 20px;
+}
+#partner-icon{
+  width: 80px;
+  margin: 10px;
+}
+.list-group-item img {
+  width: 25px;
+  margin:5px  10px;
+}

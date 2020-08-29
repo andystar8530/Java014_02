@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context displayName="Java014_02" docBase="Java014_02" path="Java014_02"
+	reloadable="true">
+	
+	<Resource name="jdbc/MarryMeDB"
+		type="javax.sql.DataSource" username="root" password="Do!ng123"
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/marryme?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Taipei&amp;allowPublicKeyRetrieval=true"
+		maxTotal="8" maxIdle="4" maxWaitMillis="5000" />
+
+</Context>
