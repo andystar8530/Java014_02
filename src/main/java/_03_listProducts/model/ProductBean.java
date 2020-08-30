@@ -5,126 +5,153 @@ import java.sql.Blob;
 
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer pid;
-	private String pcategory;
-	private String pname;
-	private Blob pcover;
-	private String fileName;
-	private String ppdqty;
-	private String ppdsum;
-	private String pstock;
-	private String psdqty;
-	private Double pprice;
-	private Blob ppic1;
-	private Blob ppic2;
-	private Blob ppic3;
-	private String pnote;
-
-	public ProductBean(Integer pid, String pcategory, String pname, Blob pcover, String fileName, String ppdqty, String ppdsum,
-			String pstock, String psdqty, Double pprice, Blob ppic1, Blob ppic2, Blob ppic3, String pnote) {
-		super();
-		this.pid = pid;
-		this.pcategory = pcategory;
-		this.pname = pname;
-		this.pcover = pcover;
-		this.fileName=fileName;
-		this.ppdqty = ppdqty;
-		this.ppdsum = ppdsum;
-		this.pstock = pstock;
-		this.psdqty = psdqty;
-		this.pprice = pprice;
-		this.ppic1 = ppic1;
-		this.ppic2 = ppic2;
-		this.ppic3 = ppic3;
-		this.pnote = pnote;
-	}
+	private int p_Id;
+	private String p_Category;
+	private String p_Name;
+	private Blob p_Cover;
+	private String p_FileName;
+	private int p_Pdqty;
+	private int p_Pdsum;
+	private int p_Stock;
+	private int p_Sdqty;
+	private Double p_Price;
+	private Blob p_Pic1;
+	private String p_FileName1;
+	private Blob p_Pic2;
+	private String p_FileName2;
+	private Blob p_Pic3;
+	private String p_FileName3;
+	private String p_Note;
 	
+	
+	public ProductBean(int p_Id, String p_Category, String p_Name, Blob p_Cover, String p_FileName, int p_Pdqty,
+			int p_Pdsum, int p_Stock, int p_Sdqty, Double p_Price, Blob p_Pic1, String p_FileName1, Blob p_Pic2,
+			String p_FileName2, Blob p_Pic3, String p_FileName3, String p_Note) {
+		super();
+		this.p_Id = p_Id;
+		this.p_Category = p_Category;
+		this.p_Name = p_Name;
+		this.p_Cover = p_Cover;
+		this.p_FileName = p_FileName;
+		this.p_Pdqty = p_Pdqty;
+		this.p_Pdsum = p_Pdsum;
+		this.p_Stock = p_Stock;
+		this.p_Sdqty = p_Sdqty;
+		this.p_Price = p_Price;
+		this.p_Pic1 = p_Pic1;
+		this.p_FileName1 = p_FileName1;
+		this.p_Pic2 = p_Pic2;
+		this.p_FileName2 = p_FileName2;
+		this.p_Pic3 = p_Pic3;
+		this.p_FileName3 = p_FileName3;
+		this.p_Note = p_Note;
+	}
 	public ProductBean(){
 		
 	}
-	public Integer getPid() {
-		return pid;
+	public int getPid() {
+		return p_Id;
 	}
-	public void setPid(Integer pid) {
-		this.pid = pid;
+	public int getP_Id() {
+		return p_Id;
 	}
-	public String getPcategory() {
-		return pcategory;
+	public void setP_Id(int p_Id) {
+		this.p_Id = p_Id;
 	}
-	public void setPcategory(String pcategory) {
-		this.pcategory = pcategory;
+	public String getP_Category() {
+		return p_Category;
 	}
-	public String getPname() {
-		return pname;
+	public void setP_Category(String p_Category) {
+		this.p_Category = p_Category;
 	}
-	public void setPname(String pname) {
-		this.pname = pname;
+	public String getP_Name() {
+		return p_Name;
 	}
-	public Blob getPcover() {
-		return pcover;
+	public void setP_Name(String p_Name) {
+		this.p_Name = p_Name;
 	}
-	public void setPcover(Blob pcover) {
-		this.pcover = pcover;
+	public Blob getP_Cover() {
+		return p_Cover;
 	}
-	public String getFileName() {
-		return fileName;
+	public void setP_Cover(Blob p_Cover) {
+		this.p_Cover = p_Cover;
 	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public String getP_FileName() {
+		return p_FileName;
 	}
-	public String getPpdqty() {
-		return ppdqty;
+	public void setP_FileName(String p_FileName) {
+		this.p_FileName = p_FileName;
 	}
-	public void setPpdqty(String ppdqty) {
-		this.ppdqty = ppdqty;
+	public int getP_Pdqty() {
+		return p_Pdqty;
 	}
-	public String getPpdsum() {
-		return ppdsum;
+	public void setP_Pdqty(int p_Pdqty) {
+		this.p_Pdqty = p_Pdqty;
 	}
-	public void setPpdsum(String ppdsum) {
-		this.ppdsum = ppdsum;
+	public int getP_Pdsum() {
+		return p_Pdsum;
 	}
-	public String getPstock() {
-		return pstock;
+	public void setP_Pdsum(int p_Pdsum) {
+		this.p_Pdsum = p_Pdsum;
 	}
-	public void setPstock(String pstock) {
-		this.pstock = pstock;
+	public int getP_Stock() {
+		return p_Stock;
 	}
-	public String getPsdqty() {
-		return psdqty;
+	public void setP_Stock(int p_Stock) {
+		this.p_Stock = p_Stock;
 	}
-	public void setPsdqty(String psdqty) {
-		this.psdqty = psdqty;
+	public int getP_Sdqty() {
+		return p_Sdqty;
 	}
-	public Double getPprice() {
-		return pprice;
+	public void setP_Sdqty(int p_Sdqty) {
+		this.p_Sdqty = p_Sdqty;
 	}
-	public void setPprice(Double pprice) {
-		this.pprice = pprice;
+	public Double getP_Price() {
+		return p_Price;
 	}
-	public Blob getPpic1() {
-		return ppic1;
+	public void setP_Price(Double p_Price) {
+		this.p_Price = p_Price;
 	}
-	public void setPpic1(Blob ppic1) {
-		this.ppic1 = ppic1;
+	public Blob getP_Pic1() {
+		return p_Pic1;
 	}
-	public Blob getPpic2() {
-		return ppic2;
+	public void setP_Pic1(Blob p_Pic1) {
+		this.p_Pic1 = p_Pic1;
 	}
-	public void setPpic2(Blob ppic2) {
-		this.ppic2 = ppic2;
+	public String getP_FileName1() {
+		return p_FileName1;
 	}
-	public Blob getPpic3() {
-		return ppic3;
+	public void setP_FileName1(String p_FileName1) {
+		this.p_FileName1 = p_FileName1;
 	}
-	public void setPpic3(Blob ppic3) {
-		this.ppic3 = ppic3;
+	public Blob getP_Pic2() {
+		return p_Pic2;
 	}
-	public String getPnote() {
-		return pnote;
+	public void setP_Pic2(Blob p_Pic2) {
+		this.p_Pic2 = p_Pic2;
 	}
-	public void setPnote(String pnote) {
-		this.pnote = pnote;
+	public String getP_FileName2() {
+		return p_FileName2;
 	}
-	
+	public void setP_FileName2(String p_FileName2) {
+		this.p_FileName2 = p_FileName2;
+	}
+	public Blob getP_Pic3() {
+		return p_Pic3;
+	}
+	public void setP_Pic3(Blob p_Pic3) {
+		this.p_Pic3 = p_Pic3;
+	}
+	public String getP_FileName3() {
+		return p_FileName3;
+	}
+	public void setP_FileName3(String p_FileName3) {
+		this.p_FileName3 = p_FileName3;
+	}
+	public String getP_Note() {
+		return p_Note;
+	}
+	public void setP_Note(String p_Note) {
+		this.p_Note = p_Note;
+	}
 }

@@ -7,50 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>顯示商品資訊</title>
-  <style type="text/css">
-#paging {
-position:relative;
-left:120px;
-top:10px;
-}  
-#pfirst {
-position:relative;
-left:2px;
-top:2px;
-}
-#pprev {
-position:relative;
-left:2px;
-top:2px;
-}
-#pnext {
-position:relative;
-left:2px;
-top:2px;
-}
-#plast {
-position:relative;
-left:2px;
-top:2px;
-}
-#main {
-	position:relative;
-	top: 5px;
-	left:40px;
-    width:100%;
-}
-#content {
-  width: 820px ;
-  margin-left: auto ;
-  margin-right: auto ;
-}
-</style>
-</head>
-<body style="background:#EBFFEB;">
+  </head>
+<body style="background:#9bf6ff;">
 <!-- 下列敘述設定變數funcName的值為SHO，topMVC.jsp 會用到此變數 -->
 <c:set var="funcName" value="SHO" scope="session"/>
 <!-- 引入共同的頁首 -->
-<%-- <jsp:include page="/fragment/topMVC.jsp" /> --%>
+<jsp:include page="/fragment/topMVC.jsp" />
 <!-- 判斷購物車內是否有商品 -->
 <c:choose>
    <c:when test="${ShoppingCart.itemNumber > 0}">
@@ -62,7 +24,8 @@ top:2px;
       <c:set var="cartContent" value="您尚未購買任何商品"/>        
    </c:otherwise>
 </c:choose>
-<div id='content'>
+
+<%-- <div id='content'>
 <TABLE  style="width:820; border:2px solid black; ">
 <!--   購物車的標題   -->          
    <TR>
@@ -115,13 +78,13 @@ top:2px;
                  getImage所對應的Servlet會到資料庫讀取圖片並傳送給前端的瀏覽器
               -->
         <img height='100' width='80' 
-     src='${pageContext.servletContext.contextPath}/_00_init/getProductImage?id=${entry.value.pId}'>
+     src='${pageContext.servletContext.contextPath}/_00_init/getProductImage?id=${entry.value.p_Id}'>
          </TD>
          <TD height='32' width='560'>
              <TABLE border='1'>
                 <TR height='30'>
                     <TD width='560'>
-                                                            書名：${entry.value.pname}
+                          產品名稱：${entry.value.p_Name}
                     </TD>
                 </TR>
              </TABLE>
@@ -147,7 +110,7 @@ top:2px;
                     <option value="10">10</option>
                </select>
                <!-- 這些隱藏欄位都會送到後端 -->
-               <Input type='hidden' name='bookId' value='${entry.value.pId}'>
+               <Input type='hidden' name='bookId' value='${entry.value.p_Id}'>
                <Input type='hidden' name='pageNo' value='${param.pageNo}'>
                <Input type='submit' value='加入購物車'>
        </FORM>
@@ -157,8 +120,8 @@ top:2px;
        <TD width='560'>
          <TABLE border='1'>
             <TR height='31'>
-               <TD width='420'>作者：${entry.value.author}</TD>
-               <TD width='140'>出版社：${fn:substring(entry.value.companyName,0,2)}</TD>
+               <TD width='280'>種類：${entry.value.p_Category}</TD>
+               <TD width='280'>訂價：<fmt:formatNumber value="${entry.value.p_Price}"  pattern="####" />元</TD>
             </TR>
          </TABLE>
       </TD>
@@ -167,65 +130,65 @@ top:2px;
        <TD width='560'>
            <TABLE border='1'> 
               <TR height='31'>
-                 <TD width='160'>書號：${entry.value.bookNo}</TD>                 
-                 <TD width='140'>訂價：<fmt:formatNumber value="${entry.value.listPrice}"  pattern="####" />元</TD>
-                 <c:if test="${ entry.value.discount != 1 }">
-                     <TD width='260'>
-                     
-                    <Font color='red' >
-                        ${entry.value.discountStr},&nbsp;
-                        實售<fmt:formatNumber value="${entry.value.listPrice*entry.value.discount}"  pattern="####" />
-                        元,&nbsp;省<fmt:formatNumber value="${entry.value.listPrice - entry.value.listPrice * entry.value.discount}"  
-                        pattern="####" />元</Font>
-                        </TD>
-                 </c:if>
-                 <c:if test="${ entry.value.discount == 1 }">
-                     <TD width='260'>&nbsp;</TD>
-                 </c:if>
+                 <TD width='560'>產品敘述：${entry.value.p_Note}</TD>                 
               </TR>
            </TABLE>
        </TD>
    </TR>
 </c:forEach> 
-</TABLE>
-</div>
-<div id="paging">
-<!-- 以下為控制第一頁、前一頁、下一頁、最末頁 等超連結-->
-<table border="1">
-  <tr>
-    <td width='76'>
-        <c:if test="${pageNo > 1}">
-           <div id="pfirst">
-              <a href="<c:url value='DisplayPageProducts?pageNo=1' />">第一頁</a>
-           </div>
+</TABLE> --%>
+
+
+
+    <!-- cards -------------------------------------------------- -->
+    <div class="container p-lg-5 p3 mb-0">
+      <div class="row">
+      <c:forEach varStatus="stVar"  var="entry"  items="${products_DPP}" >
+        <div class="col-lg-3 col-sm-6 col-12 mb-4">
+          <div class="card">
+            <img
+              src="${pageContext.servletContext.contextPath}/_00_init/getProductImage?id=${entry.value.p_Id}"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body text-center">
+              <h5 class="card-title">${entry.value.p_Name}</h5>
+              <p class="card-text">
+                NT$<fmt:formatNumber value="${entry.value.p_Price}"  pattern="####" />元
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        </c:forEach>
+      </div>
+    </div>
+
+
+    <!-- page -------------------------------------------------- -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center mb-0">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+            >第${pageNo}頁</a
+          >
+        </li>
+        <c:if test="${pageNo >= 1}">
+          <c:forEach var="x" begin="1" end="${totalPages}">
+            <li class="page-item">
+              <a class="page-link" href="DisplayPageProducts?pageNo=${x}"
+                >${x}</a
+              >
+            </li>
+          </c:forEach>
         </c:if>
-     </td>
-     <td width='76'>
-        <c:if test="${pageNo > 1}">
-           <div id="pprev">
-              <a href="<c:url value='DisplayPageProducts?pageNo=${pageNo-1}' />">上一頁</a>
-           </div>
-        </c:if>  
-     </td>
-     <td width='76'>
-            <c:if test="${pageNo != totalPages}">
-                <div id="pnext">
-                   <a href="<c:url value='DisplayPageProducts?pageNo=${pageNo+1}' />">下一頁</a>
-                </div>
-            </c:if>
-     </td>  
-     <td width='76'>
-            <c:if test="${pageNo != totalPages}">
-                <div id="plast">
-                    <a href="<c:url value='DisplayPageProducts?pageNo=${totalPages}' />">最末頁</a>
-                </div>
-            </c:if>
-     </td>
-     <td width='176' align="center">
-                      第${pageNo}頁 / 共${totalPages}頁
-     </td>  
-</tr>
-</table>
+        <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true"
+            > 共${totalPages}頁</a
+          >
+        </li>
+      </ul>
+    </nav>
 </div>
 </body>
 </html>

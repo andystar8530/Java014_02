@@ -43,8 +43,8 @@ public class RetrievePageProducts extends HttpServlet {
 		}
 		// 登入成功後，Session範圍內才會有LoginOK對應的MemberBean物件
 		MemberInfoBean mb = (MemberInfoBean) session.getAttribute("LoginOK");
-		// 取出使用者的memberId，後面的Cookie會用到 
-		String M_Id = mb.getM_Id();
+		// 取出使用者的m-No，後面的Cookie會用到 
+		int m_No = mb.getM_No();
 		// BookService介面負責讀取資料庫內Book表格內某一頁的書籍資料，並能新增、修改、刪除
 		// 書籍資料等。
 		
@@ -58,7 +58,8 @@ public class RetrievePageProducts extends HttpServlet {
 			if (cookies != null) {
 				// 逐筆檢視Cookie內的資料
 				for (Cookie c : cookies) {
-					if (c.getName().equals(M_Id + "pageNo")) {
+//					if (c.getName().equals(M_Id + "pageNo")) {
+					if (c.getName().equals(m_No + "pageNo")) {
 						try {
 							pageNo = Integer.parseInt(c.getValue().trim());
 						} catch (NumberFormatException e) {
@@ -89,7 +90,7 @@ public class RetrievePageProducts extends HttpServlet {
 
 		// 使用Cookie來儲存目前讀取的網頁編號，Cookie的名稱為memberId + "pageNo"
 		// -----------------------
-		Cookie pnCookie = new Cookie(M_Id + "pageNo", String.valueOf(pageNo));
+		Cookie pnCookie = new Cookie(m_No + "pageNo", String.valueOf(pageNo));
 	    // 設定Cookie的存活期為30天
 		pnCookie.setMaxAge(30 * 24 * 60 * 60);
 	    // 設定Cookie的路徑為 Context Path		

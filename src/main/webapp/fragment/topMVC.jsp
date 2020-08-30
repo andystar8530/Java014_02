@@ -37,7 +37,7 @@
 			<img
 				src="${pageContext.request.contextPath}/data/Image/2020-08-11/2020-08-11_v1.0.png"
 				width="50" style="display: inline;"> <a class="navbar-brand"
-				href="index.jsp">姻緣聚繪</a>
+				href="/Java014_02/index.jsp">姻緣聚繪</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button"
 				data-toggle="collapse" data-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false"
@@ -51,13 +51,7 @@
 					<li class="nav-item"><a class="nav-link" href="#">新娘秘書</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">婚禮主持</a></li>
 					<li class="nav-item "><a class="nav-link "
-						href="<c:url value='/_03_listProducts/DisplayPageProducts' />"
-						id="navbarDropdownCart" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> 小物商城 </a> <!--                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog"> -->
-						<!--                   <a class="dropdown-item" href="#">商品列表</a> -->
-						<!--                   <a class="dropdown-item" href="#">喜愛商品</a> -->
-						<!--                   <a class="dropdown-item" href="blog-post.html">購物車</a> -->
-						<!--                 </div> --></li>
+						href="<c:url value='/_03_listProducts/DisplayPageProducts' />"> 小物商城 </a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

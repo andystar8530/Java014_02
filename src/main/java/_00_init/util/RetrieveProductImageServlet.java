@@ -44,11 +44,11 @@ public class RetrieveProductImageServlet extends HttpServlet {
 			}
 			ProductBean bean = bookService.getProduct(nId);
 			if (bean != null) {
-				blob = bean.getPcover();
+				blob = bean.getP_Cover();
 				if (blob != null) {
 					is = blob.getBinaryStream();
 				}
-				fileName = bean.getFileName();
+				fileName = bean.getP_FileName();
 			}
 			// 如果圖片的來源有問題，就送回預設圖片(/images/NoImage.png)	
 			if (is == null) {

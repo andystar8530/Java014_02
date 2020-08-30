@@ -25,137 +25,57 @@ import _03_listProducts.model.ProductBean;
 //RuntimeException。
 
 public class ProductDaoImpl_Jdbc implements Serializable, ProductDao {
+
 	private static final long serialVersionUID = 1L;
 //	private int bookId = 0; 	// 查詢單筆商品會用到此代號
-	private int pageNo = 0;		// 存放目前顯示之頁面的編號
-	private int recordsPerPage = GlobalService.RECORDS_PER_PAGE; // 預設值：每頁2筆
+//	private int pageNo = 0;		// 存放目前顯示之頁面的編號
+	private int recordsPerPage = GlobalService.RECORDS_PER_PAGE; // 預設值：每頁三筆
 	private int totalPages = -1;
 	DataSource ds = null;
 	
 //	private String tagName = "";
 	String selected = "";
-	
+
 	public ProductDaoImpl_Jdbc() {
 		try {
 			Context ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup(DBService.JNDI_DB_NAME);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new RuntimeException("ProductImpl_Jdbc()#建構子發生例外: " 
+			throw new RuntimeException("ProductDaoImpl_Jdbc()#建構子發生例外: " 
 										+ ex.getMessage());
 		}
 	}
 	
+	// 計算販售的商品總共有幾頁
+	@Override
+	public int getTotalPages() {
+		// 注意下一列敘述的每一個型態轉換
+		totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
+
+		return totalPages;
+	}
 	
-	// 依productId來刪除單筆記錄
-	@Override
-	public int deleteProduct(int no) {
-		int n = 0;
-		String sql = "DELETE FROM product WHERE pid = ?";
-
-		try (
-			Connection connection = ds.getConnection(); 
-			PreparedStatement pStmt = connection.prepareStatement(sql);
-		) {
-			pStmt.setInt(1, no);
-			n = pStmt.executeUpdate();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new RuntimeException("ProductDaoImpl_Jdbc()#deleteBook()發生例外: " 
-										+ ex.getMessage());
-		}
-		return n;
-	}
-
-	@Override
-	public ProductBean getProduct(int PId) {
-		ProductBean bean = null;
-		String sql = "SELECT * FROM product WHERE pid = ?";
-
-		try (
-			Connection connection = ds.getConnection(); 
-			PreparedStatement ps = connection.prepareStatement(sql);
-		) {
-			ps.setInt(1, PId);
-			try (ResultSet rs = ps.executeQuery();) {
-				if (rs.next()) {
-					bean = new ProductBean();
-					bean.setPid(rs.getInt("pid"));
-					bean.setPcategory(rs.getString("pcategory"));
-					bean.setPname(rs.getString(3));
-					bean.setPcover(rs.getBlob(4));
-					bean.setPpdqty(rs.getString(5));
-					bean.setPpdsum(rs.getString(6));
-					bean.setPstock(rs.getString(7));
-					bean.setPsdqty(rs.getString(8));
-					bean.setPprice(rs.getDouble(9));
-					bean.setPpic1(rs.getBlob(10));
-					bean.setPpic2(rs.getBlob(11));
-					bean.setPpic3(rs.getBlob(12));
-					bean.setPnote(rs.getString(13));
-				}
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new RuntimeException("ProductDaoImpl_Jdbc()#queryBook()發生例外: " 
-										+ ex.getMessage());
-		}
-		return bean;
-	}
-
-	@Override
-	public List<String> getCategory() {
-		String sql = "SELECT DISTINCT Pcategory FROM Product";
-		List<String> list = new ArrayList<>();
-		try (
-			Connection connection = ds.getConnection();
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-		) {
-			while (rs.next()) {
-				String cate = rs.getString(1);
-				if (cate != null) {
-					list.add(cate);
-				}
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new RuntimeException("ProductDaoImpl_Jdbc()#getCategory()發生例外: " 
-										+ ex.getMessage());
-		}
-		return list;
-	}
-
-	@Override
-	public String getCategoryTag() {
-		String ans = "";
-		List<String> list = getCategory();
-		ans += "<SELECT name='category'>";
-		for (String cate : list) {
-			if (cate.equals(selected)) {
-				ans += "<option value='" + cate + "' selected>" + cate + "</option>";
-			} else {
-				ans += "<option value='" + cate + "'>" + cate + "</option>";
-			}
-		}
-		ans += "</SELECT>";
-		return ans;
-	}
-
 	// 查詢某一頁的商品(書籍)資料，執行本方法前，一定要先設定實例變數pageNo的初值
-	//未完成…                    //
 	@Override
 	public Map<Integer, ProductBean> getPageProducts(int pageNo) {
-Map<Integer, ProductBean> map = new HashMap<>();
+		Map<Integer, ProductBean> map = new HashMap<>();
+		
+//		SELECT *, ROW_NUMBER() OVER (ORDER BY p_id ) p_id FROM product
 
-//String sql0 = "SELECT  * FROM Product";
-
-		String sql0 = "SELECT  * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY PID)"
-				+ " AS RowNum, b.pid, b.pcategory, b.pcover, b.ppdqty, b.ppdsum, b.pstock, "
-				+ " b.pprice, b.ppic1, b.ppic2, b.ppic3, b.pnote "
-				+ " FROM Product b )"
+			
+		String sql0 = "SELECT  * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY P_ID)"
+				+ " AS RowNum, b.p_Id, b.p_Category, b.p_Name, b.p_Cover, b.p_FileName, b.p_Pdqty,  b.p_Pdsum, b.p_Stock, b.p_Sdqty,"
+				+ " b.p_Price, b.p_Pic1, b.p_FileName1, b.p_Pic2, b.p_FileName2, b.p_Pic3, b.p_FileName3, b.p_Note"
+				+ " FROM Product b)"
 				+ " AS NewTable WHERE RowNum >= ? AND RowNum <= ?";
 		
+//		String sql0 = "SELECT  * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY BOOKID)"
+//				+ " AS RowNum, b.BookId, b.author, b.bookNo, b.category, b.title, b.listPrice, "
+//				+ " b.discount, b.companyID, b.fileName, b.coverImage, bc.name "
+//				+ " FROM Book b JOIN BookCompany bc ON  b.companyId = bc.id )"
+//				+ " AS NewTable WHERE RowNum >= ? AND RowNum <= ?";
+//		
 //		String sql1 = "SELECT b.BookId, b.author, b.bookNo, b.category, b.TITLE, "
 //				+ "b.ListPrice, b.discount, b.companyID, b.fileName, b.coverImage, "
 //				+ "bc.name FROM Book b JOIN BookCompany bc ON  b.companyId = bc.id "
@@ -163,9 +83,7 @@ Map<Integer, ProductBean> map = new HashMap<>();
 		String sql = sql0;
 		// 由頁碼推算出該頁是由哪一筆紀錄開始(1 based)
 		int startRecordNo = (pageNo - 1) * recordsPerPage + 1;
-//		int startRecordNo = 1;
 		int endRecordNo = (pageNo) * recordsPerPage;
-//		int endRecordNo = 1;
 		// 由頁碼推算出該頁是由哪一筆紀錄開始(0 based)		
 //		int startRecordNo = (pageNo - 1) * recordsPerPage;
 //		int endRecordNo = recordsPerPage;
@@ -181,23 +99,27 @@ Map<Integer, ProductBean> map = new HashMap<>();
 				// 只要還有紀錄未取出，rs.next()會傳回true
 				// 迴圈內將逐筆取出ResultSet內的紀錄
 				while (rs.next()) {
-					// 準備一個新的BookBean，將ResultSet內的一筆紀錄移植到BookBean內
-					ProductBean bean = new ProductBean();
-					bean.setPid(rs.getInt("PId"));
-					bean.setPcategory(rs.getString("pcategory"));
-					bean.setPname(rs.getString(3));
-					bean.setPcover(rs.getBlob(4));
-					bean.setPpdqty(rs.getString(5));
-					bean.setPpdsum(rs.getString(6));
-					bean.setPstock(rs.getString(7));
-					bean.setPsdqty(rs.getString(8));
-					bean.setPprice(rs.getDouble(9));
-					bean.setPpic1(rs.getBlob(10));
-					bean.setPpic2(rs.getBlob(11));
-					bean.setPpic3(rs.getBlob(12));
-					bean.setPnote(rs.getString(13));
+					// 準備一個新的ProductBean，將ResultSet內的一筆紀錄移植到ProductBean內
+					ProductBean bean = new ProductBean();    	
+					bean.setP_Id(rs.getInt("P_Id"));		
+					bean.setP_Category(rs.getString("P_Category"));
+					bean.setP_Name(rs.getString("P_Name"));
+					bean.setP_Cover(rs.getBlob("P_Cover"));
+					bean.setP_FileName(rs.getString("P_FileName"));
+					bean.setP_Pdqty(rs.getInt("P_Pdqty"));
+					bean.setP_Pdsum(rs.getInt("P_Pdsum"));
+					bean.setP_Stock(rs.getInt("P_Stock"));
+					bean.setP_Sdqty(rs.getInt("P_Sdqty"));
+					bean.setP_Price(rs.getDouble("P_Price"));
+					bean.setP_Pic1(rs.getBlob("P_Pic1"));
+					bean.setP_FileName1(rs.getString("P_FileName1"));
+					bean.setP_Pic2(rs.getBlob("P_Pic2"));
+					bean.setP_FileName2(rs.getString("P_FileName2"));
+					bean.setP_Pic3(rs.getBlob("P_Pic3"));
+					bean.setP_FileName3(rs.getString("P_FileName3"));
+					bean.setP_Note(rs.getString("p_Note"));
 					// 最後將BookBean物件放入大的容器內
-					map.put(rs.getInt("PId"), bean);
+					map.put(rs.getInt("P_Id"), bean);
 				}
 			}
 		} catch (SQLException ex) {
@@ -227,64 +149,44 @@ Map<Integer, ProductBean> map = new HashMap<>();
 		}
 		return count;
 	}
-
-	@Override
-	public int getRecordsPerPage() {
-		return recordsPerPage;
-	}
 	
-	// 計算販售的商品總共有幾頁
 	@Override
-	public int getTotalPages() {
-		// 注意下一列敘述的每一個型態轉換
-		totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
-		return totalPages;
-	}
-
-	// 新增一筆記錄---
-	@Override
-	public int saveProduct(ProductBean bean) {
-		int n = 0;
-
-		String sql = "INSERT INTO Product " 
-				+ " (pcategory, pname, pcover, ppdqty, ppdsum, pstock, "
-				+ " psdqty, pprice, ppic1, ppic2, ppic3, pnote) " 
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+	public List<String> getCategory() {
+		String sql = "SELECT DISTINCT P_Category FROM Product";
+		List<String> list = new ArrayList<>();
 		try (
 			Connection connection = ds.getConnection();
-			PreparedStatement pStmt = connection.prepareStatement(sql);
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
 		) {
-			pStmt.setString(1, bean.getPcategory());
-			pStmt.setString(2, bean.getPname());
-			pStmt.setBlob(3, bean.getPcover());
-			pStmt.setString(4, bean.getPpdqty());
-			pStmt.setString(5, bean.getPpdsum());
-			pStmt.setString(6, bean.getPstock());
-			pStmt.setString(7, bean.getPsdqty());
-			pStmt.setDouble(8, bean.getPprice());
-			pStmt.setBlob(9, bean.getPpic1());
-			pStmt.setBlob(10, bean.getPpic2());
-			pStmt.setBlob(11, bean.getPpic3());
-			pStmt.setString(12, bean.getPnote());
-			n = pStmt.executeUpdate();
+			while (rs.next()) {
+				String cate = rs.getString(1);
+				if (cate != null) {
+					list.add(cate);
+				}
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new RuntimeException("ProductDaoImpl_Jdbc()#saveBook()發生例外: " 
+			throw new RuntimeException("ProductDaoImpl_Jdbc()#getCategory()發生例外: " 
 										+ ex.getMessage());
 		}
-		return n;
+		return list;
 	}
-
+	
 	@Override
-	public void setRecordsPerPage(int recordsPerPage) {
-		this.recordsPerPage = recordsPerPage;		
-	}
-
-	@Override
-	public void setSelected(String selected) {
-		this.selected = selected;
-		
+	public String getCategoryTag() {
+		String ans = "";
+		List<String> list = getCategory();
+		ans += "<SELECT name='category'>";
+		for (String cate : list) {
+			if (cate.equals(selected)) {
+				ans += "<option value='" + cate + "' selected>" + cate + "</option>";
+			} else {
+				ans += "<option value='" + cate + "'>" + cate + "</option>";
+			}
+		}
+		ans += "</SELECT>";
+		return ans;
 	}
 	
 	// 修改一筆書籍資料
@@ -292,8 +194,8 @@ Map<Integer, ProductBean> map = new HashMap<>();
 	public int updateProduct(ProductBean bean, long sizeInBytes) {
 		int n = 0;
 		String sql = "UPDATE Product SET " 
-				+ " pcategory=?,  pname=?,  pcover=?,  ppdqty= ?, ppdsum = ?, pstock=?,"
-				+ " psdqty=?, ppic1=?, ppic2=?, ppic3=? , pnote = ? WHERE pid = ?";
+				+ " p_Category=?,  p_Cover = ?, p_FileName=?,  p_Dqty = ?, p_Dsum = ?, p_Stock = ?, p_Sdqty = ?, p_Price=?,"
+				+ " p_Pic1=?, p_FileName1=?, p_Pic2=?, p_FileName2=?, p_Pic3=?, p_FileName3=?, p_Note = ? WHERE p_Id = ?";
 		if (sizeInBytes == -1) { // 不修改圖片
 			n = updateProduct(bean);
 			return n;
@@ -302,24 +204,26 @@ Map<Integer, ProductBean> map = new HashMap<>();
 			Connection connection = ds.getConnection(); 
 			PreparedStatement ps = connection.prepareStatement(sql);
 		) {
-			
-			ps.setString(1, bean.getPcategory());
-			ps.setString(2, bean.getPname());
-			ps.setBlob(3, bean.getPcover());
-			ps.setString(4, bean.getPpdqty());
-			ps.setString(5, bean.getPpdsum());
-			ps.setString(6, bean.getPstock());
-			ps.setString(7, bean.getPsdqty());
-			ps.setDouble(8, bean.getPprice());
-			ps.setBlob(9, bean.getPpic1());
-			ps.setBlob(10, bean.getPpic2());
-			ps.setBlob(11, bean.getPpic3());
-			ps.setString(12, bean.getPnote());
-			ps.setInt(13, bean.getPid());
+			ps.setString(1, bean.getP_Category());
+			ps.setBlob(2, bean.getP_Cover());
+			ps.setString(3, bean.getP_FileName());
+			ps.setInt(4, bean.getP_Pdqty());
+			ps.setInt(5, bean.getP_Pdsum());
+			ps.setInt(6, bean.getP_Stock());
+			ps.setInt(7, bean.getP_Sdqty());
+			ps.setDouble(8, bean.getP_Price());
+			ps.setBlob(9, bean.getP_Pic1());
+			ps.setString(10, bean.getP_FileName1());
+			ps.setBlob(11, bean.getP_Pic2());
+			ps.setString(12, bean.getP_FileName2());
+			ps.setBlob(13, bean.getP_Pic3());
+			ps.setString(14, bean.getP_FileName3());
+			ps.setString(15, bean.getP_Note());
+			ps.setInt(16, bean.getP_Id());
 			n = ps.executeUpdate();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new RuntimeException("ProductDaoImpl_Jdbc()#updateBook(ProductBean, long)發生例外: " 
+			throw new RuntimeException("ProductDaoImpl_Jdbc()#updateProduct(ProductBean, long)發生例外: " 
 										+ ex.getMessage());
 		}
 		return n;
@@ -329,31 +233,154 @@ Map<Integer, ProductBean> map = new HashMap<>();
 	public int updateProduct(ProductBean bean) {
 		int n = 0;
 		String sql = "UPDATE Product SET " 
-				+ " pcategory=?,  pname?,  ppdqty=?, ppdsum=?,  pstock=?, "
-				+ " psdqty=?,  pprice=?,  pnote=?  WHERE pId = ?";
+				+ " p_Category=?, p_Dqty = ?, p_Dsum = ?, p_Stock = ?,"
+				+ "  p_Sdqty = ?, p_Price=?,p_Note = ? WHERE p_Id = ?";
+
 		try (
 			Connection connection = ds.getConnection(); 
 			PreparedStatement ps = connection.prepareStatement(sql);
 		) {
-			ps.clearParameters();
-			ps.setString(1, bean.getPcategory());
-			ps.setString(2, bean.getPname());
-			ps.setString(3, bean.getPpdqty());
-			ps.setString(4, bean.getPpdsum());
-			ps.setString(5, bean.getPstock());
-			ps.setString(6, bean.getPsdqty());
-			ps.setDouble(7, bean.getPprice());
-			ps.setString(8, bean.getPnote());
-			ps.setInt(9, bean.getPid());
+			ps.setString(1, bean.getP_Category());
+			ps.setInt(2, bean.getP_Pdqty());
+			ps.setInt(3, bean.getP_Pdsum());
+			ps.setInt(4, bean.getP_Stock());
+			ps.setInt(5, bean.getP_Sdqty());
+			ps.setDouble(6, bean.getP_Price());
+			ps.setString(7, bean.getP_Note());
+			ps.setInt(8, bean.getP_Id());
 
 			n = ps.executeUpdate();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new RuntimeException("ProductDaoImpl_Jdbc()#updateBook(ProductBean)發生例外: " 
+			throw new RuntimeException("ProductDaoImpl_Jdbc()#updateBook(BookBean)發生例外: " 
 										+ ex.getMessage());
 		}
 		return n;
 	}
+
+	// 依bookId來刪除單筆記錄
+	@Override
+	public int deleteProduct(int no) {
+		int n = 0;
+		String sql = "DELETE FROM Product WHERE P_ID = ?";
+
+		try (
+			Connection connection = ds.getConnection(); 
+			PreparedStatement pStmt = connection.prepareStatement(sql);
+		) {
+			pStmt.setInt(1, no);
+			n = pStmt.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("ProductDaoImpl_Jdbc()#deleteBook()發生例外: " 
+										+ ex.getMessage());
+		}
+		return n;
+	}
+
+	// 新增一筆記錄---
+	@Override
+	public int saveProduct(ProductBean bean) {
+		int n = 0;
+
+		String sql = "INSERT INTO Product " 
+				+ " (p_Category, p_Cover, p_FileName, p_Dqty, p_Dsum, p_Stock, p_Sdqty, p_Price,"
+				+ " p_Pic1, p_FileName1, p_Pic2, p_FileName2, p_Pic3, p_FileName3, p_Note) " 
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		try (
+			Connection connection = ds.getConnection();
+			PreparedStatement pStmt = connection.prepareStatement(sql);
+		) {
+			pStmt.setString(1, bean.getP_Category());
+			pStmt.setBlob(2, bean.getP_Cover());
+			pStmt.setString(3, bean.getP_FileName());
+			pStmt.setInt(4, bean.getP_Pdqty());
+			pStmt.setInt(5, bean.getP_Pdsum());
+			pStmt.setInt(6, bean.getP_Stock());
+			pStmt.setInt(7, bean.getP_Sdqty());
+			pStmt.setDouble(8, bean.getP_Price());
+			pStmt.setBlob(9, bean.getP_Pic1());
+			pStmt.setString(10, bean.getP_FileName1());
+			pStmt.setBlob(11, bean.getP_Pic2());
+			pStmt.setString(12, bean.getP_FileName2());
+			pStmt.setBlob(13, bean.getP_Pic3());
+			pStmt.setString(14, bean.getP_FileName3());
+			pStmt.setString(15, bean.getP_Note());
+			n = pStmt.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("ProductDaoImpl_Jdbc()#saveBook()發生例外: " 
+										+ ex.getMessage());
+		}
+		return n;
+	}
+
 	
+	
+
+	@Override
+	public void setSelected(String selected) {
+		this.selected = selected;
+	}
+
+//	@Override
+//	public int getPageNo() {
+//		return pageNo;
+//	}
+//
+//	@Override
+//	public void setPageNo(int pageNo) {
+//		this.pageNo = pageNo;
+//	}
+
+	@Override
+	public int getRecordsPerPage() {
+		return recordsPerPage;
+	}
+
+	@Override
+	public void setRecordsPerPage(int recordsPerPage) {
+		this.recordsPerPage = recordsPerPage;
+	}
+
+	@Override
+	public ProductBean getProduct(int P_ID) {
+		ProductBean bean = null;
+		String sql = "SELECT * FROM Product WHERE P_ID = ?";
+
+		try (
+			Connection connection = ds.getConnection(); 
+			PreparedStatement ps = connection.prepareStatement(sql);
+		) {
+			ps.setInt(1, P_ID);
+			try (ResultSet rs = ps.executeQuery();) {
+				if (rs.next()) {
+					bean = new ProductBean();
+					bean.setP_Id(rs.getInt("P_Id"));		
+					bean.setP_Category(rs.getString("P_Category"));
+					bean.setP_Cover(rs.getBlob("P_Cover"));
+					bean.setP_FileName(rs.getString("P_FileName"));
+					bean.setP_Pdqty(rs.getInt("P_Pdqty"));
+					bean.setP_Pdsum(rs.getInt("P_Pdsum"));
+					bean.setP_Stock(rs.getInt("P_Stock"));
+					bean.setP_Sdqty(rs.getInt("P_Sdqty"));
+					bean.setP_Price(rs.getDouble("P_Price"));
+					bean.setP_Pic1(rs.getBlob("P_Pic1"));
+					bean.setP_FileName1(rs.getString("P_FileName1"));
+					bean.setP_Pic2(rs.getBlob("P_Pic2"));
+					bean.setP_FileName2(rs.getString("P_FileName2"));
+					bean.setP_Pic3(rs.getBlob("P_Pic3"));
+					bean.setP_FileName3(rs.getString("P_FileName3"));
+					bean.setP_Note(rs.getString("p_Note"));
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("ProductDaoImpl_Jdbc()#queryProduct()發生例外: " 
+										+ ex.getMessage());
+		}
+		return bean;
+	}
 
 }
