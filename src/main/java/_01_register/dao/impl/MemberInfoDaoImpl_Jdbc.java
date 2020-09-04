@@ -34,8 +34,8 @@ public class MemberInfoDaoImpl_Jdbc implements MemberInfoDao {
 	public int saveMember(MemberInfoBean mb) {
 		String sql = "insert into `Memberinfo` " 
 				+ " (m_no, m_status, m_code, m_id, m_password,"
-				+ "  m_name, m_phone, m_socialnum, m_add, m_propic, m_filename ) "
-				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "  m_name, m_phone, m_socialnum, m_add, m_propic, m_filename, m_createtime, m_Edittime ) "
+				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		int n = 0;
 		try (
 			Connection con = ds.getConnection(); 
@@ -52,6 +52,8 @@ public class MemberInfoDaoImpl_Jdbc implements MemberInfoDao {
 			ps.setString(9, mb.getM_Add());
 			ps.setBlob(10, mb.getM_Propic());
 			ps.setString(11, mb.getM_FileName());
+			ps.setTimestamp(12, mb.getM_Createtime());
+			ps.setTimestamp(13, mb.getM_Edittime());
 
 			n = ps.executeUpdate();
 		} catch (Exception ex) {

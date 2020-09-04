@@ -19,31 +19,32 @@ public class MemberInfoBean implements Serializable {
 	private String m_Add;
 	private Blob m_Propic;
 	private String m_FileName;
-//	private String availabletime;
-//	private Date createtime;
-//	private Date edittime;
-
-	
-
+//	private String m_availabletime;
+	private Timestamp m_Createtime;
+	private Timestamp m_Edittime;
 
 	public MemberInfoBean() {
 	}
 
-	public MemberInfoBean(int m_No, int m_Status, int m_Code, String m_Id, String m_Password, String m_Name, String m_Phone,
-		String m_Socialnum, String m_Add, Blob m_Propic, String m_FileName) {
-	super();
-	this.m_No = m_No;
-	this.m_Status = m_Status;
-	this.m_Code = m_Code;
-	this.m_Id = m_Id;
-	this.m_Password = m_Password;
-	this.m_Name = m_Name;
-	this.m_Phone = m_Phone;
-	this.m_Socialnum = m_Socialnum;
-	this.m_Add = m_Add;
-	this.m_Propic = m_Propic;
-	this.m_FileName = m_FileName;
-}
+	public MemberInfoBean(int m_No, int m_Status, int m_Code, String m_Id, String m_Password, String m_Name,
+			String m_Phone, String m_Socialnum, String m_Add, Blob m_Propic, String m_FileName,
+			Timestamp m_Createtime, Timestamp m_Edittime) {
+		super();
+		this.m_No = m_No;
+		this.m_Status = m_Status;
+		this.m_Code = m_Code;
+		this.m_Id = m_Id;
+		this.m_Password = m_Password;
+		this.m_Name = m_Name;
+		this.m_Phone = m_Phone;
+		this.m_Socialnum = m_Socialnum;
+		this.m_Add = m_Add;
+		this.m_Propic = m_Propic;
+		this.m_FileName = m_FileName;
+		this.m_Createtime = m_Createtime;
+		this.m_Edittime=m_Edittime;
+	}
+
 	public String toString() {
 		return "userid=" + m_Id + " Password=" + m_Password;
 	}
@@ -134,6 +135,22 @@ public class MemberInfoBean implements Serializable {
 
 	public void setM_FileName(String m_FileName) {
 		this.m_FileName = m_FileName;
+	}
+
+	public Timestamp getM_Createtime() {
+		return m_Createtime;
+	}
+
+	public void setM_Createtime(Timestamp m_Createtime) {
+		this.m_Createtime = m_Createtime;
+	}
+
+	public Timestamp getM_Edittime() {
+		return m_Edittime;
+	}
+
+	public void setM_Edittime(Timestamp m_Edittime) {
+		this.m_Edittime = m_Edittime;
 	}
 
 }

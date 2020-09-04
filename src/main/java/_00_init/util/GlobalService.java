@@ -31,7 +31,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public class GlobalService {
 
-	public static final int RECORDS_PER_PAGE = 4;
+	public static final int RECORDS_PER_PAGE = 2;
 	public static final String SYSTEM_NAME = "君雅網路購物商城";
 	public static final int IMAGE_FILENAME_LENGTH = 20;
 	

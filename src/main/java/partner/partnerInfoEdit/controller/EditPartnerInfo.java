@@ -1,4 +1,4 @@
-package _01_register.controller;
+package partner.partnerInfoEdit.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,56 +21,19 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import _00_init.util.GlobalService;
-import _00_init.util.SystemUtils2018;
-import _01_register.model.MemberInfoBean;
-import _01_register.service.MemberInfoService;
-import _01_register.service.impl.MemberInfoServiceImpl;
+import partnerInfoEdit.model.PartnerBean;
+import partnerInfoEdit.service.PartnerService;
+import partnerInfoEdit.service.Impl.PartnerServiceImpl;
 
-/*
- * 本程式在後端執行，它會
- * (1) 讀取使用者由前端網頁輸入資料，
- * (2) 進行必要的資料轉換，
- * (3) 檢查使用者輸入資料，
- * (4) 呼叫Business Service元件，進行Business Logic運算，
- * (5) 依照Business Logic運算結果來送回適當的畫面給前端的使用者。
- * 
- */
-//
-//啟動檔案上傳的功能：
-//1. <form>標籤的 method屬性必須是"POST", 而且
-//    enctype屬性必須是"multipart/form-data"
-//    注意：enctype屬性的預設值為"application/x-www-form-urlencoded"
-//2. 定義可以挑選上傳檔案的表單欄位：
-//   <input type='file' name='user-defined_name' />
-//
-//所謂 HTTP multipart request是指由Http客戶端(如瀏覽器)所建構的ㄧ種請求，
-//用來上傳一般的表單資料(form data)與檔案。
-//參考網頁：http://stackoverflow.com/questions/913626/what-should-a-multipart-http-request-with-multiple-files-look-like
-//
-//Servlet規格書一直到Servlet 3.0才提出標準API將檔案上傳的功能標準化。
-//
-//在Servlet 3.0中，若要能夠處理瀏覽器送來的HTTP multipart request, 
-//我們撰寫的Servlet程式必須以註釋
-//   『javax.servlet.annotation.MultipartConfig』來加以說明。
-//
-//MultipartConfig的屬性說明:
-//location: 上傳之表單資料與檔案暫時存放在Server端之路徑，此路徑必須存在，否則Web Container將丟出例外。
-//
-//fileSizeThreshold: 上傳檔案的大小臨界值，超過此臨界值，上傳檔案會用存放在硬碟，
-//                   否則存放在主記憶體。
-//
-//maxFileSize: 上傳單一檔案之長度限制，如果超過此數值，Web Container會丟出例外
-//
-//maxRequestSize: 上傳所有檔案之總長度限制，如果超過此數值，Web Container會丟出例外
+
 @MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
-		* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
-
-@WebServlet("/_01_register/register.do")
-public class RegisterServletMP extends HttpServlet {
+* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
+@WebServlet("/partnerInfoEdit.do")
+public class EditPartnerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// 
+
 	// 設定密碼欄位必須由大寫字母、小寫字母、數字與 !@#$%!^'" 等四組資料組合而成，且長度不能小於八個字元
-	// 
+	 
 	private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%!^'\"]).{8,})";
 	private Pattern pattern = null;
 	private Matcher matcher = null;
@@ -87,14 +50,18 @@ public class RegisterServletMP extends HttpServlet {
 		request.setAttribute("MsgMap", errorMsg); // 顯示錯誤訊息
 		session.setAttribute("MsgOK", msgOK); // 顯示正常訊息
 
-		String memberId = "";
-		String password = "";
-		String password1 = "";
-		String name = "";
-		String email = "";
-		String addr = "";
-		String tel = "";
-		String fileName = "";
+		String p_storeName = "";
+		int p_mId = 0;
+		String p_info = "";
+		Blob p_coverPic = null;
+		String cov_fileName = "";
+		Blob p_stamp = null;
+		String sta_fileName = "";
+		String p_service = "";
+		String p_lineId = "";
+		String p_hRate = "";
+		Timestamp createTime = null;
+		Timestamp editTime = null;
 		long sizeInBytes = 0;
 		InputStream is = null;
 		// 取出HTTP multipart request內所有的parts
@@ -106,10 +73,10 @@ public class RegisterServletMP extends HttpServlet {
 				String fldName = p.getName();
 				String value = request.getParameter(fldName);
 
-				// 1. 讀取使用者輸入資料
+				// 1. 讀取使用者輸入資料 //String getContentType()：取得 Part 物件的 Content-Type 表頭內容。如果是一般的欄位或是沒有上傳資料的話會得到 null。
 				if (p.getContentType() == null) {
-					if (fldName.equals("memberId")) {
-						memberId = value;
+					if (fldName.equals("m_No")) {
+						m_No = value;
 					} else if (fldName.equals("password")) {
 						password = value;
 					} else if (fldName.equals("password1")) {
@@ -140,7 +107,7 @@ public class RegisterServletMP extends HttpServlet {
 			// 2. 進行必要的資料轉換
 			// (無)
 			// 3. 檢查使用者輸入資料
-			if (memberId == null || memberId.trim().length() == 0) {
+			if (m_No == null || m_No.trim().length() == 0) {
 				errorMsg.put("errorIdEmpty", "帳號欄必須輸入");
 			}
 			if (password == null || password.trim().length() == 0) {
@@ -196,8 +163,8 @@ public class RegisterServletMP extends HttpServlet {
 			// MemberDaoImpl_Jdbc類別的功能：
 			// 1.檢查帳號是否已經存在，已存在的帳號不能使用，回傳相關訊息通知使用者修改
 			// 2.若無問題，儲存會員的資料
-			MemberInfoService service = new MemberInfoServiceImpl();
-			if (service.idExists(memberId)) {
+			PartnerService service = new PartnerServiceImpl();
+			if (service.idExists(m_No)) {
 				errorMsg.put("errorIdDup", "此帳號已存在，請換新帳號");
 			} else {
 				// 為了配合Hibernate的版本。
@@ -210,9 +177,8 @@ public class RegisterServletMP extends HttpServlet {
 					blob = GlobalService.fileToBlob(is, sizeInBytes);
 				}
 				// 將所有會員資料封裝到MemberBean(類別的)物件
-//				MemberInfoBean mem = new MemberInfoBean(null, memberId, name, password, addr, email, 
-//						tel, "M", ts, 0.0, 0.0,	blob, fileName);
-				MemberInfoBean mem = new MemberInfoBean(0, 0, 0, memberId, password, name, tel, email, addr, blob, fileName, ts, ts );
+				PartnerBean mem = new PartnerBean(null, pid, name, password, addr, email, 
+						tel, "M", ts, 0.0, 0.0,	blob, fileName);
 				// 呼叫MemberDao的saveMember方法
 				int n = service.saveMember(mem);
 				if (n == 1) {
@@ -237,4 +203,7 @@ public class RegisterServletMP extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
+
+	}
+
 }
