@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,22 +21,19 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import _00_init.util.GlobalService;
-import partnerInfoEdit.model.PartnerBean;
-import partnerInfoEdit.service.PartnerService;
-import partnerInfoEdit.service.Impl.PartnerServiceImpl;
-
+import _01_register.model.MemberInfoBean;
+import _01_register.service.MemberInfoService;
+import _01_register.service.impl.MemberInfoServiceImpl;
+import partner.partnerInfoEdit.model.PartnerBean;
+import partner.partnerInfoEdit.service.PartnerService;
+import partner.partnerInfoEdit.service.Impl.PartnerServiceImpl;
 
 @MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
-* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
+		* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
 @WebServlet("/partnerInfoEdit.do")
+//@WebServlet("/partner/partnerInfoEdit.do")
 public class EditPartnerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	// 設定密碼欄位必須由大寫字母、小寫字母、數字與 !@#$%!^'" 等四組資料組合而成，且長度不能小於八個字元
-	 
-	private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%!^'\"]).{8,})";
-	private Pattern pattern = null;
-	private Matcher matcher = null;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8"); // 文字資料轉內碼
@@ -50,20 +47,29 @@ public class EditPartnerInfo extends HttpServlet {
 		request.setAttribute("MsgMap", errorMsg); // 顯示錯誤訊息
 		session.setAttribute("MsgOK", msgOK); // 顯示正常訊息
 
-		String p_storeName = "";
-		int p_mId = 0;
 		String p_info = "";
+		String p_mId = "";
+		String p_storeName = "";
 		Blob p_coverPic = null;
-		String cov_fileName = "";
+		String p_covFilename = "";
 		Blob p_stamp = null;
-		String sta_fileName = "";
+		String p_staFilename = "";
 		String p_service = "";
+		String p_area = "";
 		String p_lineId = "";
 		String p_hRate = "";
-		Timestamp createTime = null;
-		Timestamp editTime = null;
+		String p_bankAcc = "";
+		Timestamp p_createTime = null;
+		Timestamp p_editTime = null;
 		long sizeInBytes = 0;
 		InputStream is = null;
+		Blob blob = null;
+		String fileName = "";		
+		int parea = 0;
+		int phRate = 0;
+		int pmId = 0;
+		int pbankAcc = 0;
+
 		// 取出HTTP multipart request內所有的parts
 		Collection<Part> parts = request.getParts();
 //		GlobalService.exploreParts(parts, request);
@@ -73,22 +79,35 @@ public class EditPartnerInfo extends HttpServlet {
 				String fldName = p.getName();
 				String value = request.getParameter(fldName);
 
-				// 1. 讀取使用者輸入資料 //String getContentType()：取得 Part 物件的 Content-Type 表頭內容。如果是一般的欄位或是沒有上傳資料的話會得到 null。
+				// 1. 讀取使用者輸入資料 //String getContentType()：
+				// 取得 Part 物件的 Content-Type 表頭內容。如果是一般的欄位或是沒有上傳資料的話會得到 null。
 				if (p.getContentType() == null) {
-					if (fldName.equals("m_No")) {
-						m_No = value;
-					} else if (fldName.equals("password")) {
-						password = value;
-					} else if (fldName.equals("password1")) {
-						password1 = value;
-					} else if (fldName.equals("name")) {
-						name = value;
-					} else if (fldName.equals("email")) {
-						email = value;
-					} else if (fldName.equals("address")) {
-						addr = value;
-					} else if (fldName.equals("tel")) {
-						tel = value;
+					if (fldName.equals("p_info")) {
+						p_info = value;
+						System.out.println("p_info = " + p_info);
+					} else if (fldName.equals("p_mId")) {
+						p_mId = value;
+						System.out.println("p_mId = " + p_mId);
+					} else if (fldName.equals("p_storeName")) {
+						p_storeName = value;
+						System.out.println("p_storeName = " + p_storeName);
+					} else if (fldName.equals("p_coverPic")) {
+						p_covFilename = value;
+					} else if (fldName.equals("serviceRadios")) {
+						p_service = value;
+						System.out.println("service = " + p_service);
+					} else if (fldName.equals("areaRadios")) { // 要型態轉換
+						p_area = value;
+						System.out.println("area = " + p_area);
+					} else if (fldName.equals("p_lineId")) {
+						p_lineId = value;
+						System.out.println("p_lineId = " + p_lineId);
+					} else if (fldName.equals("p_bankAcc")) { // 要型態轉換
+						p_bankAcc = value;
+						System.out.println("p_bankAcc = " + p_bankAcc);
+					} else if (fldName.equals("p_hRate")) { // 要型態轉換
+						p_hRate = value;
+						System.out.println("p_hRate = " + p_hRate);
 					}
 				} else {
 					// 取出圖片檔的檔名
@@ -98,55 +117,53 @@ public class EditPartnerInfo extends HttpServlet {
 					if (fileName != null && fileName.trim().length() > 0) {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
-					} 
-//					else {
-//						errorMsg.put("errPicture", "必須挑選圖片檔");
-//					}
+					} else {
+						errorMsg.put("errPicture", "必須挑選圖片檔");
+					}
 				}
 			}
 			// 2. 進行必要的資料轉換
-			// (無)
+			try {
+				parea = Integer.parseInt(p_area);
+				pmId = Integer.parseInt(p_mId);
+				phRate = Integer.parseInt(p_hRate);
+//				System.out.println(phRate+50);
+	
+
+			} catch (NumberFormatException e) {
+
+				System.out.println(e.getMessage());
+			}
+//			Date editTime = Date.valueOf(p_editTime);
+
 			// 3. 檢查使用者輸入資料
-			if (m_No == null || m_No.trim().length() == 0) {
-				errorMsg.put("errorIdEmpty", "帳號欄必須輸入");
+			if (p_storeName == null || p_storeName.trim().length() == 0) {
+				errorMsg.put("errorStoreNameEmpty", "店家名稱必須輸入");
 			}
-			if (password == null || password.trim().length() == 0) {
-				errorMsg.put("errorPasswordEmpty", "密碼欄必須輸入");
+			if (p_info == null || p_info.trim().length() == 0) {
+				errorMsg.put("errorInfoEmpty", "簡介欄必須輸入30字以上");
 			}
-			if (password1 == null || password1.trim().length() == 0) {
-				errorMsg.put("errorPassword1Empty", "密碼確認欄必須輸入");
+			if (p_service == null || p_service.trim().length() == 0) {
+				errorMsg.put("errorServiceEmpty", "主要服務必須選擇");
 			}
-			if (password.trim().length() > 0 && password1.trim().length() > 0) {
-				if (!password.trim().equals(password1.trim())) {
-					errorMsg.put("errorPassword1Empty", "密碼欄必須與確認欄一致");
-					errorMsg.put("errorPasswordEmpty", "*");
-				}
+			if (p_area == null || p_area.trim().length() == 0) {
+				errorMsg.put("errorAreaEmpty", "服務區域必須選擇");
 			}
 
-			if (name == null || name.trim().length() == 0) {
-				errorMsg.put("errorName", "姓名欄必須輸入");
+			if (p_lineId == null || p_lineId.trim().length() == 0) {
+				errorMsg.put("errorLineId", "LineId必須輸入");
 			}
-			if (addr == null || addr.trim().length() == 0) {
-				errorMsg.put("errorAddr", "地址欄必須輸入");
+			if (p_bankAcc == null || p_bankAcc.trim().length() == 0) {
+				errorMsg.put("errorbankAcc", "銀行帳戶必須輸入");
 			}
-			if (email == null || email.trim().length() == 0) {
-				errorMsg.put("errorEmail", "電子郵件欄必須輸入");
-			}
-			if (tel == null || tel.trim().length() == 0) {
-				errorMsg.put("errorTel", "電話號碼欄必須輸入");
+			if (p_hRate == null || p_hRate.trim().length() == 0) {
+				errorMsg.put("errorHRate", "預估時薪必須輸入");
 			}
 
 		} else {
 			errorMsg.put("errTitle", "此表單不是上傳檔案的表單");
 		}
-		// 如果有錯誤
-		if (errorMsg.isEmpty()) {
-			pattern = Pattern.compile(PASSWORD_PATTERN);
-			matcher = pattern.matcher(password);
-			if ( !matcher.matches() ) {
-				errorMsg.put("passwordError", "密碼至少含有一個大寫字母、小寫字母、數字與!@#$%!^'\"等四組資料組合而成，且長度不能小於八個字元");
-			}
-		}
+
 		// 如果有錯誤
 		if (!errorMsg.isEmpty()) {
 //			Set<String> set = errorMsg.keySet();
@@ -154,56 +171,112 @@ public class EditPartnerInfo extends HttpServlet {
 //				System.out.println(s);
 //			}
 			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
-			RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/partner/partnerInfoEdit.jsp");
 			rd.forward(request, response);
 			return;
 		}
 		try {
-			// 4. 產生MemberDao物件，以便進行Business Logic運算
-			// MemberDaoImpl_Jdbc類別的功能：
-			// 1.檢查帳號是否已經存在，已存在的帳號不能使用，回傳相關訊息通知使用者修改
-			// 2.若無問題，儲存會員的資料
+			// 4. 產生PartnerDao物件，以便進行Business Logic運算
+			// PartnerImpl_Jdbc類別的功能：
+			// 若無問題，儲存合作商的資料
 			PartnerService service = new PartnerServiceImpl();
-			if (service.idExists(m_No)) {
-				errorMsg.put("errorIdDup", "此帳號已存在，請換新帳號");
-			} else {
-				// 為了配合Hibernate的版本。
-				// 要在此加密，不要在 dao.saveMember(mem)進行加密
-				password = GlobalService.getMD5Endocing(
-						GlobalService.encryptString(password));
-				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
-				Blob blob = null;
+			if (!service.idExists(p_mId)) {
+				// 如果沒有這個會員編號存在partner表格，則新增一筆紀錄
+				
+//				Blob blob =null
 				if (is != null) {
 					blob = GlobalService.fileToBlob(is, sizeInBytes);
 				}
-				// 將所有會員資料封裝到MemberBean(類別的)物件
-				PartnerBean mem = new PartnerBean(null, pid, name, password, addr, email, 
-						tel, "M", ts, 0.0, 0.0,	blob, fileName);
-				// 呼叫MemberDao的saveMember方法
-				int n = service.saveMember(mem);
+				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+				PartnerBean bean = new PartnerBean(
+						0, pmId, p_storeName, p_stamp, p_coverPic, p_service, 
+						p_info, parea, 0.0, p_lineId, p_bankAcc,
+						Integer.parseInt(p_hRate), ts, ts, p_covFilename,
+						p_staFilename);
+//				PartnerBean bean = (PartnerBean) session.getAttribute("partnerBean");
+
+				int n = service.savePartner(bean);
 				if (n == 1) {
-					msgOK.put("InsertOK", "<Font color='red'>新增成功，請開始使用本系統</Font>");
-					response.sendRedirect("../index.jsp");
+					System.out.println("新增成功");
+//					msgOK.put("InsertOK", "<Font color='red'>新增成功，請開始使用本系統</Font>");
+					response.sendRedirect("/partner/partner.jsp");
 					return;
 				} else {
-					errorMsg.put("errorIdDup", "新增此筆資料有誤(RegisterServlet)");
+					System.out.println("修改此筆資料有誤(EditPartnerInfoServlet)");
+					errorMsg.put("errorIdDup", "修改此筆資料有誤(EditPartnerInfoServlet)");
 				}
-			}
-			// 5.依照 Business Logic 運算結果來挑選適當的畫面
-			if (!errorMsg.isEmpty()) {
-				// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
-				RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-				rd.forward(request, response);
-				return;
+			} else {
+				// 為了配合Hibernate的版本。
+				// 要在此加密，不要在 dao.saveMember(mem)進行加密
+
+				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+
+				// 將所有合作商資料封裝到PartnerBean(類別的)物件
+				/*
+				PartnerBean bean = new PartnerBean(0, pmId, p_storeName, p_stamp, p_coverPic, p_service, p_info,
+						parea, 0.0, p_lineId, p_bankAcc, phRate, p_createTime, p_editTime, p_covFilename,
+						p_staFilename);
+//
+				 */
+//				PartnerBean bean = (PartnerBean) session.getAttribute("partnerBean");
+				MemberInfoService service2 = new MemberInfoServiceImpl();
+				MemberInfoBean mb = service2.queryMember(p_mId);
+				Timestamp t = mb.getM_Createtime();	
+				PartnerBean bean = new PartnerBean(0, pmId, p_storeName, p_stamp, p_coverPic, p_service, p_info,
+						parea, 0.0, p_lineId, p_bankAcc, phRate, t, ts, p_covFilename,
+						p_staFilename);
+//
+//			bean.setP_stamp(p_stamp);
+//			bean.setP_staFilename(p_staFilename);
+//			bean.setP_coverPic(p_coverPic);
+//			bean.setP_covFilename(p_covFilename);
+//			bean.setP_info(p_info);
+//			bean.setP_area(parea);
+//			bean.setP_lineId(p_lineId);
+//			bean.setP_bankAcc(p_bankAcc);
+//			bean.setP_hRate(phRate);
+//			Date d = new Date();
+//			bean.setP_editTime( new Timestamp(System.currentTimeMillis()));
+				// 呼叫PartnerBean的updatePartner方法
+				int n = service.updatePartner(bean);
+				if (n == 1) {
+					System.out.println("修改成功");
+//					HttpSession secondSession = request.getSession();
+//					secondSession.setAttribute("PartnerBean", bean);
+//					msgOK.put("InsertOK", "<Font color='red'>新增成功，請開始使用本系統</Font>");
+//					response.sendRedirect("/partner/partner.jsp");
+					request.getRequestDispatcher("/partner/partner.jsp").forward(request, response);
+					return;
+				} else {
+					System.out.println("修改此筆資料有誤(EditPartnerInfoServlet)");
+					errorMsg.put("errorIdDup", "修改此筆資料有誤(EditPartnerInfoServlet)");
+				}
+
+//			// 5.依照 Business Logic 運算結果來挑選適當的畫面
+				if (!errorMsg.isEmpty()) {
+					// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
+					RequestDispatcher rd = request.getRequestDispatcher("/partner/partnerInfoEdit.jsp");
+					rd.forward(request, response);
+					return;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			errorMsg.put("errorIdDup", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+			System.out.println(e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("/partner/partnerInfoEdit.jsp");
 			rd.forward(request, response);
 		}
+// 	}
+//
 	}
 
+	public static String getDateTime() {
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+		String strDate = sdFormat.format(date);
+		// System.out.println(strDate);
+		return strDate;
 	}
 
 }

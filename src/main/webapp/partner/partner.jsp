@@ -8,7 +8,7 @@
 <title>合作商頁面</title>
 </head>
 <body>
-<jsp:include page="../fragment/topMVC.jsp" />
+<jsp:include page="/fragment/topMVC.jsp" />
 <jsp:include page="./fragment/partnerSidebar.jsp" />
 <%-- <jsp:useBean id='partner' class='partnerInfoEdit.dao.Impl.PartnerDaoImpl_Jdbc' scope='session'/> --%>
 <%-- <jsp:getProperty name='partner' property='partnerBean'/> --%>
@@ -24,12 +24,12 @@
           <div class="form-group" >
             <label for="exampleInputName">店家名稱</label>
             <input type="text" class="form-control " id="exampleInputName" aria-describedby="NameHelp"
-             value="${partnerBean.p_storeName}" disabled > 
+             value="${partnerBean.p_storeName}" readonly="readonly" > 
           </div>
           <div class="form-group" >
             <label for="exampleInputPMId">會員編號</label>
             <input type="text" class="form-control " id="exampleInputPMId" aria-describedby="PMIdHelp" 
-            value="${partnerBean.p_mId}"disabled > 
+            value="${partnerBean.p_mId}" readonly="readonly" > 
           </div>
           <div class="form-group" >
             <div><label for="exampleInputInfo">簡介:</label></div>

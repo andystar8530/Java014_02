@@ -14,21 +14,22 @@
         <h2>基本資料&nbsp</h2>
         <br>
         <hr>
-        <form action="<c:url value='partnerInfoEdit.do' />" method="POST" name="partnerEditForm" enctype='multipart/form-data'
+        <form action="<c:url value='/partnerInfoEdit.do' />" method="POST" name="partnerEditForm" enctype='multipart/form-data'
       class="needs-validation" novalidate>
           <div class="form-group" >
             <label for="exampleInputName">店家名稱</label>
             <input type="text" class="form-control " id="exampleInputName" aria-describedby="NameHelp"
-             value="${partnerBean.p_storeName}" disabled > 
+             name="p_storeName" value="${partnerBean.p_storeName}"  ><small><Font color='red'  size="-3">123456${ErrorMsgKey.PasswordEmptyError}
+             </Font></small> 
           </div>
           <div class="form-group" >
             <label for="exampleInputPMId">會員編號</label>
             <input type="text" class="form-control " id="exampleInputPMId" aria-describedby="PMIdHelp" 
-            value="${partnerBean.p_mId}"disabled > 
+           name="p_mId" value="${partnerBean.p_mId}"  readonly="readonly"  > 
           </div>
           <div class="form-group" >
             <div><label for="exampleInputInfo">簡介</label></div>
-           	<textarea cols="50" rows="5"> ${partnerBean.p_info}
+           	<textarea name="p_info" cols="50" rows="5" value="${partnerBean.p_info}"> ${partnerBean.p_info}
 			</textarea> 
 			<div></div>
             <small id="InfoHelp" class="form-text text-muted" >向新人介紹自己</small>
@@ -40,8 +41,9 @@
 <!--               <img id="cov_img"> -->
  
  			<label for="image">
-     		<input type="file" name="image" id="image_file" style="display: none" />
-     		<img src="${pageContext.request.contextPath}/util/getPartnerCoverImage?m_No=${LoginOK.m_No}" id="show_image" />
+     		<input type="file" name="p_coverPic" id="image_file" style="display: none " />
+     		<img src="${pageContext.request.contextPath}/util/getPartnerCoverImage?m_No=${LoginOK.m_No}" id="show_image" 
+     		 style="max-width:300px" name="image_1"/>
     		</label>
             </div>
           
@@ -50,8 +52,9 @@
 <!--               <input type="file" class="form-control-file" id="exampleFormControlFile2"> -->
 <!--                <img id="sta_img"> -->
 			<label for="image">
-     		<input type="file" name="image" id="image_file_sta" style="display: none" />
-     		<img src="${pageContext.request.contextPath}/util/getPartnerStampImage?m_No=${LoginOK.m_No}" id="show_image_sta" />
+     		<input type="file" name="p_stamp" id="image_file_sta" style="display: none " />
+     		<img src="${pageContext.request.contextPath}/util/getPartnerStampImage?m_No=${LoginOK.m_No}" id="show_image_sta"
+     		 style="max-width:300px" name="image_2"/>
     		</label>
             </div>
          
@@ -88,31 +91,31 @@
         
          <div class="form-group">服務區域:&nbsp&nbsp&nbsp
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios1" value="1北部" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios1" value="1" >
             <label class="form-check-label" for="areaRadios1">
               北部
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios2" value="2中部">
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios2" value="2">
             <label class="form-check-label" for="areaRadios2">
               中部
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios3" value="3南部" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios3" value="3" >
             <label class="form-check-label" for="areaRadios3">
               南部
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios4" value="4東部" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios4" value="4" >
             <label class="form-check-label" for="areaRadios4">
               東部
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios5" value="5離島" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios5" value="5" >
             <label class="form-check-label" for="areaRadios5">
               離島
             </label>
@@ -122,14 +125,14 @@
               <div class="form-group">
               <label for="exampleInputAccount">銀行帳號</label>
               <input type="text" class="form-control" id="exampleInputAccount" aria-describedby="AccountHelp"
-              value="${partnerBean.p_bankAcc}">
+              name="p_bankAcc" value="${partnerBean.p_bankAcc}">
               
               <small id="AccountHelp" class="form-text text-muted" >要錢給帳號喔喔喔</small>
           </div>
           <div class="form-group">
             <label for="exampleInputLine">Line ID:</label>
             <input type="text" class="form-control" id="exampleInputLine" aria-describedby="LineHelp"
-             value="${partnerBean.p_lineId}" >
+             name="p_lineId" value="${partnerBean.p_lineId}" >
           
             <small id="LineHelp" class="form-text text-muted" >請填寫Line ID</small>
          </div>
@@ -137,21 +140,9 @@
          <div class="form-group">
             <label for="exampleInputLine">預估時薪:</label>
             <input type="number" class="form-control" id="exampleInputHRate" aria-describedby="HRateHelp" min="158"
-            value="${partnerBean.p_hRate}">
+            name="p_hRate" value="${partnerBean.p_hRate}">
           
             <small id="HRateHelp" class="form-text text-muted" >請填寫預估時薪</small>
-         </div>
- 		<div class="form-group">
-            <label for="exampleInputCreateTime">建立時間</label>
-            <input type="date" class="form-control" id="exampleInputCreateTime" aria-describedby="CreateTimeHelp" 
-            value="${partnerBean.p_createTime}" disabled>
-           
-         </div>
-         <div class="form-group">
-            <label for="exampleInputEditTime">最後修改時間</label>
-            <input type="date" class="form-control" id="exampleInputEditTime" aria-describedby="CreateTimeHelp" 
-            value="${partnerBean.p_editTime}" disabled>
-          
          </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

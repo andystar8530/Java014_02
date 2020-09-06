@@ -73,27 +73,74 @@ public class PartnerDaoImpl_Jdbc implements Serializable , PartnerDao{
 	}
 
 	
+	@Override
+	public int savePartner(PartnerBean mb) {
+		String sql = "insert into Partner " 
+				+ " (p_Id, p_mId, p_storeName, p_info, p_coverPic,"
+				+ " p_stamp, p_service, p_area, p_review, p_bankAcc, "
+				+ "  p_lineId, p_hRate, p_createTime, p_editTime ,p_covFilename ,p_staFilename ) "
+				+ " values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?)";
+		int n = 0;
+		try (
+			Connection con = ds.getConnection(); 
+			PreparedStatement ps = con.prepareStatement(sql);
+		) {
+			ps.setInt(1, mb.getP_mId());
+			ps.setString(2, mb.getP_storeName());
+			ps.setString(3, mb.getP_info());
+			ps.setBlob(4, mb.getP_coverPic());
+			ps.setBlob(5, mb.getP_stamp());
+			ps.setString(6, mb.getP_service());
+			ps.setInt(7, mb.getP_area());
+			ps.setDouble(8, mb.getP_review());
+			ps.setString(9, mb.getP_bankAcc());
+			ps.setString(10, mb.getP_lineId());
+			ps.setInt(11, mb.getP_hRate());
+			ps.setTimestamp(12, mb.getP_createTime());
+			ps.setTimestamp(13, mb.getP_editTime());
+			ps.setString(14, mb.getP_covFilename());
+			ps.setString(15, mb.getP_staFilename());
+			
+
+			n = ps.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("PartnerDaoImpl_Jdbc類別#savePartner()發生例外: " 
+										+ ex.getMessage());
+		}
+		return n;
+	}
+
+
 	//更新店家資訊
 	@Override
-	public int updatePartner(PartnerBean bean, long sizeInBytes) {
+	public int updatePartner(PartnerBean mb) {
+		
 		int n = 0;
 		String sql = "UPDATE partner SET " 
-				+ " p_stamp=?,  p_coverPic=?,  p_service=?, p_info=?, "
-				+ " p_area=?,  p_lineId=?, p_bankAcc=?, p_hRate=?  WHERE p_mId = ?";
+				+ " p_storeName=?,p_info=?,p_coverPic=?, p_stamp=?,p_service=?,p_area=?,p_review=?,p_bankAcc=?,p_lineId=?,p_hRate=?,p_createTime=?,p_editTime=? ,p_covFilename=? ,p_staFilename=? "
+				+ " WHERE p_mId = ?";
 		try (
 			Connection conn = ds.getConnection(); 
 			PreparedStatement ps = conn.prepareStatement(sql);
 		) {
+			
 			ps.clearParameters();
-			ps.setBlob(1, bean.getP_stamp());
-			ps.setBlob(2, bean.getP_coverPic());
-			ps.setString(3, bean.getP_service());
-			ps.setString(4, bean.getP_info());
-			ps.setInt(5, bean.getP_area());
-			ps.setString(6, bean.getP_lineId());
-			ps.setString(7, bean.getP_bankAcc());
-			ps.setInt(8, bean.getP_hRate());
-			ps.setInt(9, bean.getP_mId());
+			ps.setString(1, mb.getP_storeName());
+			ps.setString(2, mb.getP_info());
+			ps.setBlob(3, mb.getP_coverPic());
+			ps.setBlob(4, mb.getP_stamp());
+			ps.setString(5, mb.getP_service());
+			ps.setInt(6, mb.getP_area());
+			ps.setDouble(7, mb.getP_review());
+			ps.setString(8, mb.getP_bankAcc());
+			ps.setString(9, mb.getP_lineId());
+			ps.setInt(10, mb.getP_hRate());
+			ps.setTimestamp(11, mb.getP_createTime());
+			ps.setTimestamp(12, mb.getP_editTime());
+			ps.setString(13, mb.getP_covFilename());
+			ps.setString(14, mb.getP_staFilename());			
+			ps.setInt(15, mb.getP_mId());
 			
 	
 			n = ps.executeUpdate();
@@ -149,6 +196,71 @@ public class PartnerDaoImpl_Jdbc implements Serializable , PartnerDao{
 		}
 		return bean;
 	
+	}
+
+
+//	@Override
+//	public int updatePartner(PartnerBean mb) {
+//		String sql = "insert into Partner " 
+//				+ " (memberID, name, password, address, email, "
+//				+ " tel, userType, registerTime, totalAmt, memberImage," 
+//				+ " fileName, comment, unpaid_amount) "
+//				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+////		 PartnerBean(int p_id, int p_mId, String p_storeName, Blob p_stamp, Blob p_coverPic, String p_service,
+////					String p_info, int p_area, double p_review, String p_lineId, String p_bankAcc, int p_hRate,
+////					Timestamp p_createTime, Timestamp p_editTime, String p_covFilename, String p_staFilename) 
+//		int n = 0;
+//		try (
+//			Connection con = ds.getConnection(); 
+//			PreparedStatement ps = con.prepareStatement(sql);
+//		) {
+//			ps.setString(1, mb.getMemberId());
+//			ps.setString(2, mb.getName());
+//			
+//			ps.setString(3, mb.getPassword());
+//			ps.setString(4, mb.getAddress());
+//			ps.setString(5, mb.getEmail());
+//			ps.setString(6, mb.getTel());
+//			ps.setString(7, mb.getUserType());
+//			ps.setTimestamp(8, mb.getRegisterTime());
+//			
+//			ps.setDouble(9, mb.getTotalAmt());
+//			ps.setBlob(10, mb.getMemberImage());
+//			ps.setString(11, mb.getFileName());
+//			ps.setClob(12, mb.getComment());
+//			ps.setDouble(13, mb.getUnpaid_amount());
+//			n = ps.executeUpdate();
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			throw new RuntimeException("PartnerDaoImpl_Jdbc類別#savePartner()發生例外: " 
+//										+ ex.getMessage());
+//		}
+//
+//		return 0;
+//	}
+
+
+	@Override
+	public boolean idExists(String p_mId) {
+		boolean exist = false;
+		String sql = "SELECT * FROM Partner WHERE p_mId = ?";
+		try (
+			Connection connection = ds.getConnection(); 
+			PreparedStatement ps = connection.prepareStatement(sql);
+		) {
+			ps.setString(1, p_mId);
+			try (ResultSet rs = ps.executeQuery();) {
+				if (rs.next()) {
+					exist = true;
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("PartnerDaoImpl_Jdbc類別#idExists()發生例外: " 
+					+ ex.getMessage());
+		}
+		return exist;
+		
 	}
 
 

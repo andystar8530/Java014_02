@@ -1,5 +1,7 @@
 package partner.partnerInfoEdit.service.Impl;
 
+import java.sql.Connection;
+
 import partner.partnerInfoEdit.dao.PartnerDao;
 import partner.partnerInfoEdit.dao.Impl.PartnerDaoImpl_Jdbc;
 import partner.partnerInfoEdit.model.PartnerBean;
@@ -22,10 +24,22 @@ public class PartnerServiceImpl implements PartnerService {
 
 
 
+	
+
+
 	@Override
 	public int savePartner(PartnerBean mb) {
 		return dao.savePartner(mb);
 	}
+
+
+
+	@Override
+	public int updatePartner(PartnerBean mb) {
+		return dao.updatePartner(mb);
+	}
+
+
 
 	@Override
 	public boolean idExists(String m_No) {
@@ -36,6 +50,8 @@ public class PartnerServiceImpl implements PartnerService {
 	public PartnerBean queryPartner(String p_mId) {
 		return dao.queryPartner(p_mId);
 	}
+
+
 	
 	
 	
