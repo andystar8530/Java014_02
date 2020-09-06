@@ -61,10 +61,14 @@ public class EditPartnerInfo extends HttpServlet {
 		String p_bankAcc = "";
 		Timestamp p_createTime = null;
 		Timestamp p_editTime = null;
-		long sizeInBytes = 0;
-		InputStream is = null;
-		Blob blob = null;
-		String fileName = "";		
+		long cov_sizeInBytes = 0;
+		long sta_sizeInBytes = 0;
+		InputStream cis = null;
+		InputStream sis = null;
+		Blob cov_blob = null;
+		Blob sta_blob = null;
+		String cov_fileName = "";		
+		String sta_fileName = "";		
 		int parea = 0;
 		int phRate = 0;
 		int pmId = 0;
@@ -109,14 +113,24 @@ public class EditPartnerInfo extends HttpServlet {
 						p_hRate = value;
 						System.out.println("p_hRate = " + p_hRate);
 					}
-				} else {
+				} else if(p.getContentType() != null && fldName.equals("p_coverPic")){
 					// 取出圖片檔的檔名
-					fileName = GlobalService.getFileName(p);
+					cov_fileName = GlobalService.getFileName(p);
 					// 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
-					fileName = GlobalService.adjustFileName(fileName, GlobalService.IMAGE_FILENAME_LENGTH);
-					if (fileName != null && fileName.trim().length() > 0) {
-						sizeInBytes = p.getSize();
-						is = p.getInputStream();
+					cov_fileName = GlobalService.adjustFileName(cov_fileName, GlobalService.IMAGE_FILENAME_LENGTH);
+					if (cov_fileName != null && cov_fileName.trim().length() > 0) {
+						cov_sizeInBytes = p.getSize();
+						cis = p.getInputStream();
+					} else {
+						errorMsg.put("errPicture", "必須挑選圖片檔");
+					}
+				}else if(p.getContentType() != null && fldName.equals("p_stamp")) {
+					sta_fileName = GlobalService.getFileName(p);
+					// 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
+					sta_fileName = GlobalService.adjustFileName(sta_fileName, GlobalService.IMAGE_FILENAME_LENGTH);
+					if (sta_fileName != null && sta_fileName.trim().length() > 0) {
+						sta_sizeInBytes = p.getSize();
+						sis = p.getInputStream();
 					} else {
 						errorMsg.put("errPicture", "必須挑選圖片檔");
 					}
@@ -149,7 +163,6 @@ public class EditPartnerInfo extends HttpServlet {
 			if (p_area == null || p_area.trim().length() == 0) {
 				errorMsg.put("errorAreaEmpty", "服務區域必須選擇");
 			}
-
 			if (p_lineId == null || p_lineId.trim().length() == 0) {
 				errorMsg.put("errorLineId", "LineId必須輸入");
 			}
@@ -184,15 +197,18 @@ public class EditPartnerInfo extends HttpServlet {
 				// 如果沒有這個會員編號存在partner表格，則新增一筆紀錄
 				
 //				Blob blob =null
-				if (is != null) {
-					blob = GlobalService.fileToBlob(is, sizeInBytes);
+				if (cis != null) {
+					cov_blob = GlobalService.fileToBlob(cis, cov_sizeInBytes);
+				}
+				if (sis != null) {
+					sta_blob = GlobalService.fileToBlob(sis, sta_sizeInBytes);
 				}
 				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 				PartnerBean bean = new PartnerBean(
-						0, pmId, p_storeName, p_stamp, p_coverPic, p_service, 
+						0, pmId, p_storeName, sta_blob, cov_blob, p_service, 
 						p_info, parea, 0.0, p_lineId, p_bankAcc,
-						Integer.parseInt(p_hRate), ts, ts, p_covFilename,
-						p_staFilename);
+						Integer.parseInt(p_hRate), ts, ts, cov_fileName,
+						sta_fileName);
 //				PartnerBean bean = (PartnerBean) session.getAttribute("partnerBean");
 
 				int n = service.savePartner(bean);
@@ -219,12 +235,18 @@ public class EditPartnerInfo extends HttpServlet {
 //
 				 */
 //				PartnerBean bean = (PartnerBean) session.getAttribute("partnerBean");
+				if (cis != null) {
+					cov_blob = GlobalService.fileToBlob(cis, cov_sizeInBytes);
+				}
+				if (sis != null) {
+					sta_blob = GlobalService.fileToBlob(sis, sta_sizeInBytes);
+				}
 				MemberInfoService service2 = new MemberInfoServiceImpl();
 				MemberInfoBean mb = service2.queryMember(p_mId);
 				Timestamp t = mb.getM_Createtime();	
-				PartnerBean bean = new PartnerBean(0, pmId, p_storeName, p_stamp, p_coverPic, p_service, p_info,
-						parea, 0.0, p_lineId, p_bankAcc, phRate, t, ts, p_covFilename,
-						p_staFilename);
+				PartnerBean bean = new PartnerBean(0, pmId, p_storeName, sta_blob, cov_blob, p_service, p_info,
+						parea, 0.0, p_lineId, p_bankAcc, phRate, t, ts, cov_fileName,
+						sta_fileName);
 //
 //			bean.setP_stamp(p_stamp);
 //			bean.setP_staFilename(p_staFilename);
