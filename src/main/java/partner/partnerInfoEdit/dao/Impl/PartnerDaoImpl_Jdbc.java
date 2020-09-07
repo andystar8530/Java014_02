@@ -243,6 +243,7 @@ public class PartnerDaoImpl_Jdbc implements Serializable , PartnerDao{
 	@Override
 	public boolean idExists(String p_mId) {
 		boolean exist = false;
+		
 		String sql = "SELECT * FROM Partner WHERE p_mId = ?";
 		try (
 			Connection connection = ds.getConnection(); 

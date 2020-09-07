@@ -193,7 +193,9 @@ public class EditPartnerInfo extends HttpServlet {
 			// PartnerImpl_Jdbc類別的功能：
 			// 若無問題，儲存合作商的資料
 			PartnerService service = new PartnerServiceImpl();
-			if (!service.idExists(p_mId)) {
+			MemberInfoBean member = (MemberInfoBean) session.getAttribute("LoginOK");
+			String mNo =String.valueOf(member.getM_No()); 
+			if (!service.idExists(mNo)) {
 				// 如果沒有這個會員編號存在partner表格，則新增一筆紀錄
 				
 //				Blob blob =null
@@ -205,7 +207,7 @@ public class EditPartnerInfo extends HttpServlet {
 				}
 				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 				PartnerBean bean = new PartnerBean(
-						0, pmId, p_storeName, sta_blob, cov_blob, p_service, 
+						0, member.getM_No(), p_storeName, sta_blob, cov_blob, p_service, 
 						p_info, parea, 0.0, p_lineId, p_bankAcc,
 						Integer.parseInt(p_hRate), ts, ts, cov_fileName,
 						sta_fileName);
@@ -215,7 +217,7 @@ public class EditPartnerInfo extends HttpServlet {
 				if (n == 1) {
 					System.out.println("新增成功");
 //					msgOK.put("InsertOK", "<Font color='red'>新增成功，請開始使用本系統</Font>");
-					response.sendRedirect("/partner/partner.jsp");
+					response.sendRedirect("./partner.jsp");
 					return;
 				} else {
 					System.out.println("修改此筆資料有誤(EditPartnerInfoServlet)");
