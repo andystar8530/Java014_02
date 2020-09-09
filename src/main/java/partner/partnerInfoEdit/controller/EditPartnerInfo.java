@@ -269,7 +269,7 @@ public class EditPartnerInfo extends HttpServlet {
 //					secondSession.setAttribute("PartnerBean", bean);
 //					msgOK.put("InsertOK", "<Font color='red'>新增成功，請開始使用本系統</Font>");
 //					response.sendRedirect("/partner/partner.jsp");
-					request.getRequestDispatcher("/partner/partner.jsp").forward(request, response);
+					request.getRequestDispatcher("/displayPartnerInfo.do").forward(request, response);
 					return;
 				} else {
 					System.out.println("修改此筆資料有誤(EditPartnerInfoServlet)");

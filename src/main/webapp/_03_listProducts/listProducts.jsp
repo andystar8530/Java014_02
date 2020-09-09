@@ -94,7 +94,7 @@
           FORM表單的資料會送後端的 _03_listBooks.controller.BuyBookServlet.java
                          來處理 
        -->
-							<FORM action="<c:url value='BuyBook.do' />" method="POST">
+							<FORM action="<c:url value='/_03_listProcudts/BuyProduct.do' />" method="POST">
 								購買數量: <select name='qty'>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -108,7 +108,7 @@
 									<option value="10">10</option>
 								</select>
 								<!-- 這些隱藏欄位都會送到後端 -->
-								<Input type='hidden' name='bookId' value='${entry.value.p_Id}'>
+								<Input type='hidden' name='P_Id' value='${entry.value.p_Id}'>
 								<Input type='hidden' name='pageNo' value='${param.pageNo}'>
 								<Input type='submit' value='加入購物車'>
 							</FORM>

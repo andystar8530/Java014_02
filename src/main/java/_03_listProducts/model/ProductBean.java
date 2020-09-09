@@ -154,4 +154,9 @@ public class ProductBean implements Serializable{
 	public void setP_Note(String p_Note) {
 		this.p_Note = p_Note;
 	}
+	
+	public String getDescription() {
+		return getP_Name()+ " "
+				+ getP_Note().substring(0, Math.min(3, getP_Note().length()));
+	}
 }
