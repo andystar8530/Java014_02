@@ -78,11 +78,11 @@
 					<c:if test="${empty LoginOK}">
 						<li class="nav-item">
 							<!--                 如果沒登入才會顯示會員登入按鈕 --> <a class="nav-link"
-							href="<c:url value='/_02_login/login.jsp' />">會員登入</a>
+							href="<c:url value='/ch02_login/login.jsp' />">會員登入</a>
 						</li>
 						<li class="nav-item">
 							<!--        如果沒登入才會顯示註冊按鈕 --> <a class="nav-link"
-							href="<c:url value='/_01_register/quickReg.jsp' />">註冊</a>
+							href="<c:url value='/ch01_register/quickReg.jsp' />">註冊</a>
 						</li>
 					</c:if>
 					<c:if test="${!empty LoginOK}">

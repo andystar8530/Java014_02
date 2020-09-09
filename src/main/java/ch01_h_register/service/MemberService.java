@@ -18,7 +18,7 @@ public class MemberService {
 	public MemberBean checkIDPassword(String id, String password) {
 		MemberDao dao = new MemberDao();
 		MemberBean mb = dao.select(id);
-		if(mb!=null && mb.getM_PASSWORD().equals(password)) {
+		if(mb!=null && mb.getM_Password().equals(password)) {
 			return mb;
 		}
 		return null;

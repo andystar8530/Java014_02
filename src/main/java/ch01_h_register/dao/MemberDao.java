@@ -30,7 +30,7 @@ public class MemberDao {
 		}
 	}
 
-	private static final String HQL_SELECT_BY_ID = "FROM MemberBean mb WHERE mb.M_ID = :mid";
+	private static final String HQL_SELECT_BY_ID = "FROM MemberBean mb WHERE mb.M_Id = :mid";
 
 	public MemberBean select(String id) {
 		MemberBean result = null;
@@ -55,11 +55,11 @@ public class MemberDao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			mb = (MemberBean) session.get(MemberBean.class, memberBean.getM_NO());
+			mb = (MemberBean) session.get(MemberBean.class, memberBean.getM_No());
 			if (mb != null) {
-				mb.setM_PHONE(memberBean.getM_PHONE());
-				mb.setM_NAME(memberBean.getM_NAME());
-				mb.setM_AVAILABLETIME(memberBean.getM_AVAILABLETIME());
+				mb.setM_Phone(memberBean.getM_Phone());
+				mb.setM_Name(memberBean.getM_Name());
+				mb.setM_Availabletime(memberBean.getM_Availabletime());
 			}
 			tx.commit();
 		} catch (Exception e) {

@@ -134,11 +134,11 @@
 				<h2>基本資料&nbsp</h2>
 				<a href="newlywedInfo.jsp"><img src="icon/document.png"
 					width="30" class="editInfo"></a>
-				<div class="newlyWed">會員號碼 :  <span>${LoginOK.m_NO}</span></div>
-				<div class="newlyWed">Email(信箱) :  <span>${LoginOK.m_ID}</span></div>
-				<div class="newlyWed">手機號碼 :  <span>${LoginOK.m_PHONE}</span></div>
-				<div class="newlyWed">真實姓名 :  <span>${LoginOK.m_NAME}</span></div>
-				<div class="newlyWed">聯絡時間 :  <span>${LoginOK.m_AVAILABLETIME}</span></div>
+				<div class="newlyWed">會員號碼 :  <span>${LoginOK.m_No}</span></div>
+				<div class="newlyWed">Email(信箱) :  <span>${LoginOK.m_Id}</span></div>
+				<div class="newlyWed">手機號碼 :  <span>${LoginOK.m_Phone}</span></div>
+				<div class="newlyWed">真實姓名 :  <span>${LoginOK.m_Name}</span></div>
+				<div class="newlyWed">聯絡時間 :  <span>${LoginOK.m_Availabletime}</span></div>
 
 			</div>
 		</div>

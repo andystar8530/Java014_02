@@ -59,9 +59,13 @@
 <!-- 													password</label> -->
 <!-- 											</div> -->
 <!-- 										</div> -->
+                                           <input type="radio" name="identity" value="${0}"> 新人<br>
+                                           <input type="radio" name="identity" value="${1}"> 合作商<br>
+                                           <span><font
+												color='red' size="-1">${ErrorMsgKey.MustCheckIden}</font></span>
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="password.html">Forgot Password?</a> <input
+											 <input
 												class="btn btn-primary" type="submit" value="送出" />
 										</div>
 									</form>

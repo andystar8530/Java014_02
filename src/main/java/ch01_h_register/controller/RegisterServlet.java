@@ -36,8 +36,15 @@ public class RegisterServlet extends HttpServlet {
 		if(!cpassword.equals(password)) {
 			errorMessage.put("MustbeSamePassword", "密碼欄與確認密碼欄必須一致");
 		}
+		String code = request.getParameter("identity");
+		Integer codeint = null;
+		if(code==null || id.trim().length()==0) {
+			errorMessage.put("MustCheckIden", "請勾選身份");
+		}else {
+			codeint = Integer.valueOf(code);
+		}
 		if (errorMessage.isEmpty()) {
-			MemberBean mb = new MemberBean(m_NO, id, password);
+			MemberBean mb = new MemberBean(m_NO, id, password, codeint);
 			try {
 				MemberService service = new MemberService();
 				service.persist(mb);

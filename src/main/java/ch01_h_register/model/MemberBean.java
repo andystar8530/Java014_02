@@ -16,66 +16,95 @@ public class MemberBean implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer M_NO;
+	private Integer M_No;
 	
 	@Column(name = "M_ID")
-	private String M_ID;
+	private String M_Id;
 	@Column(name = "M_PASSWORD")
-	private String M_PASSWORD;
+	private String M_Password;
 	@Column(name = "M_PHONE")
-	private String M_PHONE;
+	private String M_Phone;
 	@Column(name = "M_NAME")
-	private String M_NAME;
+	private String M_Name;
 	@Column(name = "M_AVAILABLETIME")
-	private String M_AVAILABLETIME;
+	private String M_Availabletime;
+	@Column(name = "M_CODE")
+	private Integer M_Code;
+	
+
+	public MemberBean(Integer m_No, String m_Id, String m_Password, Integer m_Code) {
+		super();
+		M_No = m_No;
+		M_Id = m_Id;
+		M_Password = m_Password;
+		M_Code = m_Code;
+	}
 	
 	public MemberBean() {
 		super();
 	}
-	public MemberBean(Integer m_NO, String m_ID, String m_PASSWORD) {
-		super();
-		M_NO = m_NO;
-		M_ID = m_ID;
-		M_PASSWORD = m_PASSWORD;
+
+	public Integer getM_No() {
+		return M_No;
 	}
-	public Integer getM_NO() {
-		return M_NO;
+
+	public void setM_No(Integer m_No) {
+		M_No = m_No;
 	}
-	public void setM_NO(Integer m_NO) {
-		M_NO = m_NO;
+
+	public String getM_Id() {
+		return M_Id;
 	}
-	public String getM_ID() {
-		return M_ID;
+
+	public void setM_Id(String m_Id) {
+		M_Id = m_Id;
 	}
-	public void setM_ID(String m_ID) {
-		M_ID = m_ID;
+
+	public String getM_Password() {
+		return M_Password;
 	}
-	public String getM_PASSWORD() {
-		return M_PASSWORD;
+
+	public void setM_Password(String m_Password) {
+		M_Password = m_Password;
 	}
-	public void setM_PASSWORD(String m_PASSWORD) {
-		M_PASSWORD = m_PASSWORD;
+
+	public String getM_Phone() {
+		return M_Phone;
 	}
-	public String getM_PHONE() {
-		return M_PHONE;
+
+	public void setM_Phone(String m_Phone) {
+		M_Phone = m_Phone;
 	}
-	public void setM_PHONE(String m_PHONE) {
-		M_PHONE = m_PHONE;
+
+	public String getM_Name() {
+		return M_Name;
 	}
-	public String getM_NAME() {
-		return M_NAME;
+
+	public void setM_Name(String m_Name) {
+		M_Name = m_Name;
 	}
-	public void setM_NAME(String m_NAME) {
-		M_NAME = m_NAME;
+
+	public String getM_Availabletime() {
+		return M_Availabletime;
 	}
-	public String getM_AVAILABLETIME() {
-		return M_AVAILABLETIME;
+
+	public void setM_Availabletime(String m_Availabletime) {
+		M_Availabletime = m_Availabletime;
 	}
-	public void setM_AVAILABLETIME(String m_AVAILABLETIME) {
-		M_AVAILABLETIME = m_AVAILABLETIME;
+
+	public Integer getM_Code() {
+		return M_Code;
 	}
+
+	public void setM_Code(Integer m_Code) {
+		M_Code = m_Code;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberBean [M_NO=" + M_NO + ", M_ID=" + M_ID + ", M_PASSWORD=" + M_PASSWORD + "]";
+		return "MemberBean [M_No=" + M_No + ", M_Id=" + M_Id + ", M_Password=" + M_Password + ", M_Phone=" + M_Phone
+				+ ", M_Name=" + M_Name + ", M_Availabletime=" + M_Availabletime + ", M_Code=" + M_Code + "]";
 	}
+
 }
+

@@ -1,4 +1,4 @@
-package ch02_h_login.controller; 
+package ch02_h_login.controller;
 
 import java.io.IOException;
 import java.util.*;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import ch01_h_register.model.MemberBean;
 import ch01_h_register.service.MemberService;
-
 
 @WebServlet("/ch02_login/login.do")
 public class LoginServlet extends HttpServlet {
@@ -55,7 +54,11 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(contextPath + target);
 
 			} else {
-				response.sendRedirect(contextPath + "/_newlyWed/newlywed.jsp");
+				if(mb.getM_Code()==0) {
+					response.sendRedirect(contextPath + "/_newlyWed/newlywed.jsp");
+				}else if(mb.getM_Code()==1) {
+					response.sendRedirect(contextPath + "/partner/partner.jsp");
+				}
 			}
 			return;
 		} else {

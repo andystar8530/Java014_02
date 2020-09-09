@@ -33,8 +33,8 @@ public class UpdateServlet extends HttpServlet {
 		MemberBean mb = (MemberBean) request.getSession().getAttribute("passMb");
 		System.out.println(mb);
 
-		mb.setM_NAME(name);
-		mb.setM_PHONE(phone);
+		mb.setM_Name(name);
+		mb.setM_Phone(phone);
 		ls.updateMember(mb);
 		RequestDispatcher rd = request.getRequestDispatcher("/_newlyWed/newlywed.jsp");
 		rd.forward(request, response);
