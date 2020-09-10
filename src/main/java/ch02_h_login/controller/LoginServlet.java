@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 				if(mb.getM_Code()==0) {
 					response.sendRedirect(contextPath + "/_newlyWed/newlywed.jsp");
 				}else if(mb.getM_Code()==1) {
-					response.sendRedirect(contextPath + "/partner/partner.jsp");
+					response.sendRedirect(contextPath + "/displayPartnerInfo.do");
 				}
 			}
 			return;

@@ -88,7 +88,7 @@
 					<c:if test="${!empty LoginOK}">
 						<c:if test="${LoginOK.m_Code == 0}">
 							<li class="nav-item"><a class="nav-link"
-								href="${pageContext.request.contextPath}/newlywed/newlywed.jsp">新人頁面</a>
+								href="${pageContext.request.contextPath}/_newlyWed/newlywed.jsp">新人頁面</a>
 							</li>
 						</c:if>
 						<c:if test="${LoginOK.m_Code == 1}">

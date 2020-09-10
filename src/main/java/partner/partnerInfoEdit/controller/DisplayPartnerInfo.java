@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import _01_register.model.MemberInfoBean;
+import ch01_h_register.model.MemberBean;
 import partner.partnerInfoEdit.dao.PartnerDao;
 import partner.partnerInfoEdit.dao.Impl.PartnerDaoImpl_Jdbc;
 import partner.partnerInfoEdit.model.PartnerBean;
@@ -35,7 +35,8 @@ public class DisplayPartnerInfo extends HttpServlet {
 		}
 		PartnerDao dao = new PartnerDaoImpl_Jdbc();
 		// 登入成功後，Session範圍內才會有LoginOK對應的MemberBean物件
-		MemberInfoBean mb = (MemberInfoBean) session.getAttribute("LoginOK");
+//		MemberInfoBean mb = (MemberInfoBean) session.getAttribute("LoginOK");
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		PartnerBean bean = dao.getPartner(mb.getM_No());
 		session.setAttribute("partnerBean",bean);
 		RequestDispatcher rd = request.getRequestDispatcher("/partner/partner.jsp");

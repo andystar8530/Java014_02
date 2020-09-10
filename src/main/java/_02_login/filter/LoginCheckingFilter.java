@@ -1,12 +1,22 @@
 package _02_login.filter;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
-import javax.servlet.http.*;
-import _01_register.model.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import ch01_h_register.model.MemberBean;
 
 // 每個請求送達Server端時，都由本過濾器來檢查該請求所要求的資源是否需要登入才能使用。
 // 檢查的邏輯為：
@@ -70,7 +80,7 @@ public class LoginCheckingFilter implements Filter {
 						// 原本要執行的程式。
 						session.setAttribute("requestURI", requestURI);	
 					}
-					resp.sendRedirect(contextPath + "/_02_login/login.jsp");
+					resp.sendRedirect(contextPath + "/ch02_login/login.jsp");
 					return;
 				}
 			} else {   //不需要登入，直接去執行他要執行的程式
@@ -84,7 +94,8 @@ public class LoginCheckingFilter implements Filter {
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		
-		MemberInfoBean loginToken = (MemberInfoBean) session.getAttribute("LoginOK");
+//		MemberInfoBean loginToken = (MemberInfoBean) session.getAttribute("LoginOK");
+		MemberBean loginToken = (MemberBean) session.getAttribute("LoginOK");
 		if (loginToken == null) {
 			return false;
 		} else {

@@ -94,7 +94,7 @@
           FORM表單的資料會送後端的 _03_listBooks.controller.BuyBookServlet.java
                          來處理 
        -->
-							<FORM action="<c:url value='/_03_listProcudts/BuyProduct.do' />" method="POST">
+							<FORM action="<c:url value='/_03_listProducts/BuyProduct.do' />" method="POST">
 								購買數量: <select name='qty'>
 									<option value="1">1</option>
 									<option value="2">2</option>

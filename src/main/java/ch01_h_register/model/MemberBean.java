@@ -1,6 +1,7 @@
 package ch01_h_register.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +31,8 @@ public class MemberBean implements Serializable{
 	private String M_Availabletime;
 	@Column(name = "M_CODE")
 	private Integer M_Code;
+	@Column(name = "M_CREATETIME")
+	private Timestamp M_CreateTime;
 	
 
 	public MemberBean(Integer m_No, String m_Id, String m_Password, Integer m_Code) {
@@ -98,6 +101,14 @@ public class MemberBean implements Serializable{
 
 	public void setM_Code(Integer m_Code) {
 		M_Code = m_Code;
+	}
+
+	public Timestamp getM_CreateTime() {
+		return M_CreateTime;
+	}
+
+	public void setM_CreateTime(Timestamp m_CreateTime) {
+		M_CreateTime = m_CreateTime;
 	}
 
 	@Override

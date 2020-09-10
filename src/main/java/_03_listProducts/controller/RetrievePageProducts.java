@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import _01_register.model.MemberInfoBean;
-//import _01_register.model.MemberBean;
 import _03_listProducts.model.ProductBean;
 import _03_listProducts.service.ProductService;
 import _03_listProducts.service.impl.ProductServiceImpl;
+import ch01_h_register.model.MemberBean;
 
 @WebServlet("/_03_listProducts/DisplayPageProducts")
 //本控制器負責進行必要的前置作業，以便Dao取回某一頁的商品資料
@@ -42,7 +41,8 @@ public class RetrievePageProducts extends HttpServlet {
 			return;
 		}
 		// 登入成功後，Session範圍內才會有LoginOK對應的MemberBean物件
-		MemberInfoBean mb = (MemberInfoBean) session.getAttribute("LoginOK");
+//		MemberInfoBean mb = (MemberInfoBean) session.getAttribute("LoginOK");
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		// 取出使用者的m-No，後面的Cookie會用到 
 		int m_No = mb.getM_No();
 		// BookService介面負責讀取資料庫內Book表格內某一頁的書籍資料，並能新增、修改、刪除

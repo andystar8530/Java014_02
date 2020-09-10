@@ -21,9 +21,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import _00_init.util.GlobalService;
-import _01_register.model.MemberInfoBean;
-import _01_register.service.MemberInfoService;
-import _01_register.service.impl.MemberInfoServiceImpl;
+import ch01_h_register.model.MemberBean;
+import ch01_h_register.service.MemberService;
 import partner.partnerInfoEdit.model.PartnerBean;
 import partner.partnerInfoEdit.service.PartnerService;
 import partner.partnerInfoEdit.service.Impl.PartnerServiceImpl;
@@ -193,7 +192,8 @@ public class EditPartnerInfo extends HttpServlet {
 			// PartnerImpl_Jdbc類別的功能：
 			// 若無問題，儲存合作商的資料
 			PartnerService service = new PartnerServiceImpl();
-			MemberInfoBean member = (MemberInfoBean) session.getAttribute("LoginOK");
+//			MemberInfoBean member = (MemberInfoBean) session.getAttribute("LoginOK");
+			MemberBean member = (MemberBean) session.getAttribute("LoginOK");
 			String mNo =String.valueOf(member.getM_No()); 
 			if (!service.idExists(mNo)) {
 				// 如果沒有這個會員編號存在partner表格，則新增一筆紀錄
@@ -243,9 +243,11 @@ public class EditPartnerInfo extends HttpServlet {
 				if (sis != null) {
 					sta_blob = GlobalService.fileToBlob(sis, sta_sizeInBytes);
 				}
-				MemberInfoService service2 = new MemberInfoServiceImpl();
-				MemberInfoBean mb = service2.queryMember(p_mId);
-				Timestamp t = mb.getM_Createtime();	
+//				MemberInfoService service2 = new MemberInfoServiceImpl();
+//				MemberInfoBean mb = service2.queryMember(p_mId);
+				MemberService service2 = new MemberService();
+				MemberBean mb = service2.get(Integer.valueOf(p_mId));
+				Timestamp t = mb.getM_CreateTime();	
 				PartnerBean bean = new PartnerBean(0, pmId, p_storeName, sta_blob, cov_blob, p_service, p_info,
 						parea, 0.0, p_lineId, p_bankAcc, phRate, t, ts, cov_fileName,
 						sta_fileName);

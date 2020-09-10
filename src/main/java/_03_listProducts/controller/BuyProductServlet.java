@@ -15,7 +15,7 @@ import _03_listProducts.model.ProductBean;
 import _04_ShoppingCart.model.SaleOrderItemBean;
 import _04_ShoppingCart.model.ShoppingCart;
 // 當使用者按下『加入購物車』時，瀏覽器會送出請求到本程式
-@WebServlet("/_03_listProcudts/BuyProduct.do")
+@WebServlet("/_03_listProducts/BuyProduct.do")
 public class BuyProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
