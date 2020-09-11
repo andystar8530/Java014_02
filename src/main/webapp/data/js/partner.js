@@ -8,6 +8,7 @@ function doFirst(){
   $(".list-group-2").click(function(){
     $(".list-group-open2").slideToggle("slow");
   })
+ 
 
   // Example starter JavaScript for disabling form submissions if there are invalid fields
 // function() {

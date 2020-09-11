@@ -51,7 +51,7 @@ public class RetrievePartnerStampImageServlet extends HttpServlet {
 			if (is == null) {
 				p_staFilename = "NoImage.png" ; 
 				is = getServletContext().getResourceAsStream(
-						"/image/" + p_staFilename);
+						"data/Image/" + p_staFilename);
 			}
 			
 			// 由圖片檔的檔名來得到檔案的MIME型態

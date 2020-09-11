@@ -45,7 +45,7 @@ public class RetrievePartnerCoverImageServlet extends HttpServlet {
 			if (is == null) {
 				p_covFilename = "NoImage.png" ; 
 				is = getServletContext().getResourceAsStream(
-						"/image/" + p_covFilename);
+						"data/Image/" + p_covFilename);
 			}
 			
 			// 由圖片檔的檔名來得到檔案的MIME型態

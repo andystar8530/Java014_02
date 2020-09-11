@@ -8,8 +8,8 @@ body{
     width: 100%;
 }
 
-.dropdown-menu li:hover .sub-menu {visibility: visible;}
-.dropdown:hover .dropdown-menu {display: block;}
+/* .dropdown-menu li:hover .sub-menu {visibility: visible;}
+.dropdown:hover .dropdown-menu {display: block;} */
 .header .logo{
     display: inline-block;
     padding: 6px 0;
@@ -334,4 +334,7 @@ div h2{
 .email-box:hover > .tbox,.tbox:focus{
     width: 260px;
     padding: 0 10px;
+}
+.sidebar-item .list-group-open1{
+	width:20px;
 }

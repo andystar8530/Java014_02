@@ -182,7 +182,7 @@
       });
       </script>
       
-        <script src="../data/js/partner.js"></script>
+<!--         <script src="../data/js/partner.js"></script> -->
 
 </body>
 </html>

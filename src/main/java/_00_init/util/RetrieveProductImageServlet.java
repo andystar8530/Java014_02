@@ -54,7 +54,7 @@ public class RetrieveProductImageServlet extends HttpServlet {
 			if (is == null) {
 				fileName = "NoImage.png" ; 
 				is = getServletContext().getResourceAsStream(
-						"/images/" + fileName);
+						"data/Image/" + fileName);
 			}
 			
 			// 由圖片檔的檔名來得到檔案的MIME型態

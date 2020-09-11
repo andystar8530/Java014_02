@@ -217,7 +217,8 @@ public class EditPartnerInfo extends HttpServlet {
 				if (n == 1) {
 					System.out.println("新增成功");
 //					msgOK.put("InsertOK", "<Font color='red'>新增成功，請開始使用本系統</Font>");
-					response.sendRedirect("./partner.jsp");
+//					response.sendRedirect("/displayPartnerInfo.do");
+					request.getRequestDispatcher("/displayPartnerInfo.do").forward(request, response);
 					return;
 				} else {
 					System.out.println("修改此筆資料有誤(EditPartnerInfoServlet)");

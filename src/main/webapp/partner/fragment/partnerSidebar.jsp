@@ -46,7 +46,7 @@
             
         
           <a  class="list-group-item list-group-1"><img src="${pageContext.request.contextPath}/data/icon/3253474-wedding/png/001-clipboard.png" >報價合約
-            <a class="sidebar-item list-group-open1" >合約範本</a>
+           <a class="sidebar-item list-group-open1" > 合約範本</a>
             <a class="sidebar-item list-group-open1" >已簽約</a>
             <a class="sidebar-item list-group-open1" >未簽約</a>
           </a>
@@ -61,7 +61,7 @@
         </div>
       </div>
    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
-  <script src="${pageContext.request.contextPath}/data/js/partner.js"></script>
+<%--   <script src="${pageContext.request.contextPath}/data/js/partner.js"></script> --%>
    <script src="${pageContext.request.contextPath}/data/js/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/data/js/bootstrap.bundle.min.js"></script>
 </body>

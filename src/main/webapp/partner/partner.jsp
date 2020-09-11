@@ -6,8 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>合作商頁面</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/data/css/marryMa.css">
 </head>
 <body>
+  
 <jsp:include page="/fragment/topMVC.jsp" />
 <jsp:include page="./fragment/partnerSidebar.jsp" />
 <%-- <jsp:useBean id='partner' class='partnerInfoEdit.dao.Impl.PartnerDaoImpl_Jdbc' scope='session'/> --%>
