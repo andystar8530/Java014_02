@@ -11,6 +11,7 @@
   <!-- Custom styles for this template -->
   <link href="${pageContext.request.contextPath}/data/css/modern-business.css" rel="stylesheet">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/data/css/marryMa.css">
+<%--   <link rel="stylesheet" href="${pageContext.request.contextPath}/data/css/animate.css"> --%>
  
 </head>
 <body>
@@ -32,7 +33,7 @@
     <div class="row">
       <!-- Sidebar Column -->
       <div class="col-lg-3 mb-4">
-        <div class="list-group">
+        <div class="list-group" >
           <div class="list-group-item href="#" >
               <img src="${pageContext.request.contextPath}/_00_init/getMemberImage?id=${LoginOK.m_No}" width="80" style="border-radius: 50%;" id="partner-icon">
               <div>${partnerBean.p_storeName}</div>
@@ -46,13 +47,13 @@
             
         
           <a  class="list-group-item list-group-1"><img src="${pageContext.request.contextPath}/data/icon/3253474-wedding/png/001-clipboard.png" >報價合約
-           <a class="sidebar-item list-group-open1" > 合約範本</a>
-            <a class="sidebar-item list-group-open1" >已簽約</a>
-            <a class="sidebar-item list-group-open1" >未簽約</a>
+           <a class="sidebar-item list-group-open1 wow  bounce"  data-wow-duration="1s"  > 合約範本</a>
+            <a class="sidebar-item list-group-open1 wow  bounce" data-wow-duration="1s" >已簽約</a>
+            <a class="sidebar-item list-group-open1 wow  bounce" data-wow-duration="1s" >未簽約</a>
           </a>
-          <a  class="list-group-item list-group-2"><img src="${pageContext.request.contextPath}/data/icon/3253474-wedding/png/027-wedding invitation.png" >訂單管理
-            <a class="sidebar-item list-group-open2" href="#">我的訂單</a>
-            <a class="sidebar-item list-group-open2" href="#">專案成本表</a>
+          <a  class="list-group-item list-group-2  "><img src="${pageContext.request.contextPath}/data/icon/3253474-wedding/png/027-wedding invitation.png" >訂單管理
+            <a class="sidebar-item list-group-open2 wow bounce" data-wow-duration="1s"  href="#">我的訂單</a>
+            <a class="sidebar-item list-group-open2 wow bounce" data-wow-duration="1s"  href="#">專案成本表</a>
           </a>
           <a  class="list-group-item"><img src="${pageContext.request.contextPath}/data/icon/3253474-wedding/png/025-calendar.png" >行程管理</a>
           <a  class="list-group-item"><img src="${pageContext.request.contextPath}/data/icon/3253474-wedding/png/011-love.png" >來聊聊  &nbsp <span class="badge badge-primary badge-pill" >14</span></a></a>
@@ -64,5 +65,9 @@
 <%--   <script src="${pageContext.request.contextPath}/data/js/partner.js"></script> --%>
    <script src="${pageContext.request.contextPath}/data/js/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/data/js/bootstrap.bundle.min.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/data/js/wow.min.js"></script> --%>
+<!--     <script> -->
+//     new WOW().init();
+<!--     </script> -->
 </body>
 </html>

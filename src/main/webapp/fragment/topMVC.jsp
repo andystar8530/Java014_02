@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/data/Image/removebg.ico" type="image/x-icon" />
 <title>姻緣聚繪</title>
 
 <!-- Bootstrap core CSS -->
@@ -27,6 +27,8 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/data/css/marryMa.css">
+<!-- 	wow.js -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/data/css/animate.css">
 
 </head>
 <body>
@@ -35,7 +37,7 @@
 		class="navbar fixed-top navbar-expand-lg navbar-light bg-pink fixed-top">
 		<div class="container">
 			<img
-				src="${pageContext.request.contextPath}/data/Image/2020-08-11/2020-08-11_v1.0.png"
+				src="${pageContext.request.contextPath}/data/Image/removebg.png"
 				width="50" style="display: inline;"> <a class="navbar-brand"
 				href="/Java014_02/index.jsp">姻緣聚繪</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button"
@@ -46,15 +48,15 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="#">婚禮佈置</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">婚禮攝影</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">新娘秘書</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">婚禮主持</a></li>
-					<li class="nav-item "><a class="nav-link "
+					<li class="nav-item"><a class="nav-link  wow fadeInLeft" href="#">婚禮佈置</a></li>
+					<li class="nav-item"><a class="nav-link  wow fadeInLeft" href="#">婚禮攝影</a></li>
+					<li class="nav-item"><a class="nav-link  wow fadeInLeft" href="#">新娘秘書</a></li>
+					<li class="nav-item"><a class="nav-link  wow fadeInLeft" href="#">婚禮主持</a></li>
+					<li class="nav-item "><a class="nav-link wow fadeInLeft"
 						href="<c:url value='/_03_listProducts/DisplayPageProducts' />">
 							小物商城 </a></li>
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
+						class="nav-link dropdown-toggle wow fadeInLeft" href="#" id="navbarDropdownBlog"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							社群分享 </a>
 						<div class="dropdown-menu dropdown-menu-right"
@@ -64,7 +66,7 @@
 						</div></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdownPages"
+						class="nav-link dropdown-toggle wow fadeInLeft" href="#" id="navbarDropdownPages"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							平台說明 </a>
 						<div class="dropdown-menu dropdown-menu-right"
@@ -76,30 +78,30 @@
 								href="#">問題回報</a>
 						</div></li>
 					<c:if test="${empty LoginOK}">
-						<li class="nav-item">
+						<li class="nav-item wow fadeInLeft">
 							<!--                 如果沒登入才會顯示會員登入按鈕 --> <a class="nav-link"
 							href="<c:url value='/ch02_login/login.jsp' />">會員登入</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item wow fadeInLeft">
 							<!--        如果沒登入才會顯示註冊按鈕 --> <a class="nav-link"
 							href="<c:url value='/ch01_register/quickReg.jsp' />">註冊</a>
 						</li>
 					</c:if>
 					<c:if test="${!empty LoginOK}">
 						<c:if test="${LoginOK.m_Code == 0}">
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item "><a class="nav-link wow fadeInLeft"
 								href="${pageContext.request.contextPath}/_newlyWed/newlywed.jsp">新人頁面</a>
 							</li>
 						</c:if>
 						<c:if test="${LoginOK.m_Code == 1}">
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item"><a class="nav-link wow fadeInLeft"
 								href="${pageContext.request.contextPath}/displayPartnerInfo.do">商家頁面</a>
 							</li>
 						</c:if>
 						<c:if test="${LoginOK.m_Code == 2}">
-							<li class="nav-item"><a class="nav-link" href="#">管理頁面</a></li>
+							<li class="nav-item"><a class="nav-link fadeInLeft" href="#">管理頁面</a></li>
 						</c:if>
-						<li class="nav-item"><a class="nav-link"
+						<li class="nav-item"><a class="nav-link fadeInLeft"
 							href="<c:url value='/_02_login/logout.jsp' />"> 登出 </a></li>
 
 						<li class="nav-item"><img height='40px' width='40px'
@@ -112,12 +114,17 @@
 	</nav>
 
 
-
+	
 	<!-- Bootstrap core JavaScript -->
 	<script src="${pageContext.request.contextPath}/data/js/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/data/js/bootstrap.bundle.min.js"></script>
 	<script src="${pageContext.request.contextPath}/data/js/marry.js"></script>
 	<script src="${pageContext.request.contextPath}/data/js/partner.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+	   <script src="${pageContext.request.contextPath}/data/js/wow.min.js"></script>
+    <script>
+    new WOW().init();
+    </script>
 </body>
 </html>
