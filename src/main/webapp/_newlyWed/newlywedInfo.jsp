@@ -29,7 +29,7 @@
 
 	<!-- Navigation -->
 	<!-- 引入共同的頁首 -->
-<jsp:include page="/fragment/topMVC.jsp" />
+<%-- 	<jsp:include page="/fragment/topMVC.jsp" /> --%>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -40,7 +40,8 @@
 		</h1>
 
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">首頁</a></li>
+			<li class="breadcrumb-item"><a
+				href="${pageContext.request.contextPath}/">首頁</a></li>
 			<li class="breadcrumb-item active">新人資料</li>
 		</ol>
 
@@ -66,7 +67,8 @@
 							src="icon/3253474-wedding/png/001-clipboard.png">我的討論區 </a> <a
 						class="list-group-item list-group-2"><img
 							src="icon/3253474-wedding/png/027-wedding invitation.png">我的收藏
-							> </a> <a class="list-group-item" href="${pageContext.request.contextPath}/"><img
+							> </a> <a class="list-group-item"
+						href="${pageContext.request.contextPath}/"><img
 							src="icon/3253474-wedding/png/025-calendar.png">回首頁</a>
 				</div>
 			</div>
@@ -92,7 +94,8 @@
 					<div class="form-group">
 						<label for="formGroupExampleInput2">手機號碼</label> <input
 							type="text" class="form-control" id="formGroupExampleInput2"
-							placeholder="Telephone" name="updatePhone" value="${param.updatePhone}">
+							placeholder="Telephone" name="updatePhone"
+							value="${param.updatePhone}">
 					</div>
 					<div class="form-group">
 						<label for="formGroupExampleInput2">真實姓名</label> <input
