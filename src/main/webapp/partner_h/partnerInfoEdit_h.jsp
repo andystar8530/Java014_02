@@ -19,7 +19,7 @@
           <div class="form-group" >
             <label for="exampleInputName">店家名稱</label>
             <input type="text" class="form-control " id="exampleInputName" aria-describedby="NameHelp"
-             name="p_storeName" value="${partnerBean.p_storeName}"  ><small><Font color='red'  size="-3">123456${ErrorMsgKey.PasswordEmptyError}
+             name="p_storeName" value="${partnerBean.p_storeName}"  ><small><Font color='red'  size="-3">${MsgMap.errorStoreNameEmpty}
              </Font></small> 
           </div>
           <div class="form-group" >
@@ -33,10 +33,14 @@
 			</textarea> 
 			<div></div>
             <small id="InfoHelp" class="form-text text-muted" >向新人介紹自己</small>
+            <small><Font color='red'  size="-3">${MsgMap.errorInfoEmpty}
+             </Font></small> 
           </div>
           
             <div class="form-group">
               <label for="exampleFormControlFile1">封面圖</label><br>
+              <small><Font color='red'  size="-3">${MsgMap.errorPicture}
+             </Font></small> 
 <!--               <input type="file" class="form-control-file" id="exampleFormControlFile1"> -->
 <!--               <img id="cov_img"> -->
  
@@ -45,10 +49,13 @@
      		<img src="${pageContext.request.contextPath}/util/getPartnerCoverImage?m_No=${LoginOK.m_No}" id="show_image" 
      		 style="max-width:300px" name="image_1"/>
     		</label>
+    		  
             </div>
           
             <div class="form-group">
-              <label for="exampleFormControlFile1">上傳公司大小章</label><br>
+              <label for="exampleFormControlFile1">上傳公司大小章</label><br> 
+              <small><Font color='red'  size="-3">${MsgMap.errorPicture2}
+             </Font></small> 
 <!--               <input type="file" class="form-control-file" id="exampleFormControlFile2"> -->
 <!--                <img id="sta_img"> -->
 			<label for="image">
@@ -56,29 +63,36 @@
      		<img src="${pageContext.request.contextPath}/util/getPartnerStampImage?m_No=${LoginOK.m_No}" id="show_image_sta"
      		 style="max-width:300px" name="image_2"/>
     		</label>
+           
             </div>
          
           <div class="form-group">主要服務項目:&nbsp&nbsp&nbsp
+          <small><Font color='red'  size="-3">${MsgMap.errorServiceEmpty}
+             </Font></small> 
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios1" value="婚禮佈置" >
+            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios1" 
+            value="婚禮佈置" ${partnerBean.p_service == "婚禮佈置" ?  "checked='checked'" : ""} >
             <label class="form-check-label" for="serviceRadios1">
               婚禮佈置
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios2" value="婚禮攝影">
+            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios2"
+             value="婚禮攝影" ${partnerBean.p_service == "婚禮攝影" ? "checked='checked'" : ""}>
             <label class="form-check-label" for="serviceRadios2">
               婚禮攝影
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios3" value="新娘秘書" >
+            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios3" 
+            value="新娘秘書" ${partnerBean.p_service == "新娘秘書" ? "checked='checked'" : ""}>
             <label class="form-check-label" for="serviceRadios3">
              新娘秘書
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios4" value="婚禮主持" >
+            <input class="form-check-input" type="radio" name="serviceRadios" id="serviceRadios4" 
+            value="婚禮主持" ${partnerBean.p_service == "婚禮主持" ?  "checked='checked'" : ""} >
             <label class="form-check-label" for="serviceRadios4">
              婚禮主持
             </label>
@@ -90,32 +104,39 @@
         
         
          <div class="form-group">服務區域:&nbsp&nbsp&nbsp
+          <small><Font color='red'  size="-3">${MsgMap.errorAreaEmpty}
+             </Font></small> 
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios1" value="1" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios1" value="1" 
+            ${partnerBean.p_area == "1" ?  "checked='checked'" : ""}>
             <label class="form-check-label" for="areaRadios1">
               北部
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios2" value="2">
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios2" value="2"
+             ${partnerBean.p_area == "2" ?  "checked='checked'" : ""} >
             <label class="form-check-label" for="areaRadios2">
               中部
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios3" value="3" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios3" value="3" 
+             ${partnerBean.p_area == "3" ?  "checked='checked'" : ""} >
             <label class="form-check-label" for="areaRadios3">
               南部
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios4" value="4" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios4" value="4" 
+            ${partnerBean.p_area == "4" ?  "checked='checked'" : ""} >
             <label class="form-check-label" for="areaRadios4">
               東部
             </label>
           </div>
           <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios5" value="5" >
+            <input class="form-check-input" type="radio" name="areaRadios" id="areaRadios5" value="5"
+            ${partnerBean.p_area == "5" ?  "checked='checked'" : ""}  >
             <label class="form-check-label" for="areaRadios5">
               離島
             </label>
@@ -126,8 +147,10 @@
               <label for="exampleInputAccount">銀行帳號</label>
               <input type="text" class="form-control" id="exampleInputAccount" aria-describedby="AccountHelp"
               name="p_bankAcc" value="${partnerBean.p_bankAcc}">
-              
               <small id="AccountHelp" class="form-text text-muted" >要錢給帳號喔喔喔</small>
+                <small><Font color='red'  size="-3">${MsgMap.errorbankAcc}
+             </Font></small> 
+              
           </div>
           <div class="form-group">
             <label for="exampleInputLine">Line ID:</label>
@@ -135,6 +158,8 @@
              name="p_lineId" value="${partnerBean.p_lineId}" >
           
             <small id="LineHelp" class="form-text text-muted" >請填寫Line ID</small>
+              <small><Font color='red'  size="-3">${MsgMap.errorLineId}
+             </Font></small> 
          </div>
          
          <div class="form-group">
@@ -143,6 +168,8 @@
             name="p_hRate" value="${partnerBean.p_hRate}">
           
             <small id="HRateHelp" class="form-text text-muted" >請填寫預估時薪</small>
+              <small><Font color='red'  size="-3">${MsgMap.errorHRate}
+             </Font></small> 
          </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

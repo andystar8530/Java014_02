@@ -1,4 +1,4 @@
-package partner.partnerInfoEdit.controller;
+package partner_h.partnerInfoEdit_h.controller;
 
 import java.io.IOException;
 
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ch01_h_register.model.MemberBean;
-import partner.partnerInfoEdit.dao.PartnerDao;
-import partner.partnerInfoEdit.dao.Impl.PartnerDaoImpl_Jdbc;
-import partner.partnerInfoEdit.model.PartnerBean;
+import partner_h.partnerInfoEdit_h.model.PartnerBean;
+import partner_h.partnerInfoEdit_h.service.PartnerService;
+import partner_h.partnerInfoEdit_h.service.Impl.PartnerServiceImpl;
 
 
-//@WebServlet("/displayPartnerInfo.do")
+@WebServlet("/displayPartnerInfo.do")
 public class DisplayPartnerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,13 +33,13 @@ public class DisplayPartnerInfo extends HttpServlet {
 			response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
 			return;
 		}
-		PartnerDao dao = new PartnerDaoImpl_Jdbc();
+		PartnerService service = new PartnerServiceImpl();
 		// 登入成功後，Session範圍內才會有LoginOK對應的MemberBean物件
 //		MemberInfoBean mb = (MemberInfoBean) session.getAttribute("LoginOK");
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		PartnerBean bean = dao.getPartner(mb.getM_No());
+		PartnerBean bean = service.getPartner(mb.getM_No());
 		session.setAttribute("partnerBean",bean);
-		RequestDispatcher rd = request.getRequestDispatcher("/partner/partner.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/partner_h/partner_h.jsp");
 		rd.forward(request, response);
 		return;
 	}

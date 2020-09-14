@@ -1,4 +1,4 @@
-package partner.partnerInfoEdit.util;
+package partner_h.partnerInfoEdit_h.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,15 +16,15 @@ import partner.partnerInfoEdit.model.PartnerBean;
 import partner.partnerInfoEdit.service.PartnerService;
 import partner.partnerInfoEdit.service.Impl.PartnerServiceImpl;
 
-//@WebServlet("/util/getPartnerCoverImage")
-public class RetrievePartnerCoverImageServlet extends HttpServlet {
+@WebServlet("/util/getPartnerStampImage")
+public class RetrievePartnerStampImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		OutputStream os = null;
 		InputStream is = null;
-		String p_covFilename = null;
+		String p_staFilename = null;
 		String mimeType = null;
 		Blob blob = null;
 		try {
@@ -32,24 +32,30 @@ public class RetrievePartnerCoverImageServlet extends HttpServlet {
 			String m_No = request.getParameter("m_No");
 			// 讀取瀏覽器傳送來的type，以分辨要處理哪個表格
 			PartnerService partnerService = new PartnerServiceImpl();
-			PartnerBean bean = partnerService.queryPartner(m_No);
+			int p_mId = 0;
+			try {
+				p_mId = Integer.parseInt(m_No);
+			}catch(NumberFormatException ex) {
+				;
+			}
 			
+			PartnerBean bean = partnerService.getPartner(p_mId);
 			if (bean != null) {
-				blob = bean.getP_coverPic();
+				blob = bean.getP_stamp();
 				if (blob != null) { //有bean不一定有圖
 					is = blob.getBinaryStream();
 				}
-				p_covFilename = bean.getP_covFilename();
+				p_staFilename = bean.getP_staFilename();
 			}
 			// 如果圖片的來源有問題，就送回預設圖片(/images/NoImage.png)	
 			if (is == null) {
-				p_covFilename = "NoImage.png" ; 
+				p_staFilename = "NoImage.png" ; 
 				is = getServletContext().getResourceAsStream(
-						"data/Image/" + p_covFilename);
+						"data/Image/" + p_staFilename);
 			}
 			
 			// 由圖片檔的檔名來得到檔案的MIME型態
-			mimeType = getServletContext().getMimeType(p_covFilename);
+			mimeType = getServletContext().getMimeType(p_staFilename);
 			// *****設定輸出資料的MIME型態
 			response.setContentType(mimeType);
 			// 取得能寫出非文字資料的OutputStream物件
