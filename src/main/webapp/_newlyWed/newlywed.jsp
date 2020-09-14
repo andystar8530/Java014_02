@@ -1,11 +1,13 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="memberService" class="ch01_h_register.service.MemberService" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="memberService"
+	class="ch01_h_register.service.MemberService" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<c:if test="${empty LoginOK}">
-		<c:set var="target" value="${pageContext.request.servletPath}" scope="session"/>
-		<c:redirect url="/ch02_login/login.jsp"/>
-	</c:if>
+<c:if test="${empty LoginOK}">
+	<c:set var="target" value="${pageContext.request.servletPath}"
+		scope="session" />
+	<c:redirect url="/ch02_login/login.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,17 +26,17 @@
 
 <!-- Custom styles for this template -->
 <link href="css/modern-business.css" rel="stylesheet">
-<link rel="stylesheet" href="css/marryMa.css">
-<script
-	src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
-<script src="js/partner.js"></script>
+<!-- <link rel="stylesheet" href="css/marryMa.css"> -->
+<!-- <script -->
+<!-- 	src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script> -->
+<!-- <script src="js/partner.js"></script> -->
 </head>
 
 <body>
 
 	<!-- Navigation -->
 	<!-- 引入共同的頁首 -->
-<jsp:include page="/fragment/topMVC.jsp" />
+	<%-- <jsp:include page="/fragment/topMVC.jsp" /> --%>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -45,7 +47,8 @@
 		</h1>
 
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">首頁</a></li>
+			<li class="breadcrumb-item"><a
+				href="${pageContext.request.contextPath}/">首頁</a></li>
 			<li class="breadcrumb-item active">新人資料</li>
 		</ol>
 
@@ -71,7 +74,8 @@
 							src="icon/3253474-wedding/png/001-clipboard.png">我的討論區 </a> <a
 						class="list-group-item list-group-2"><img
 							src="icon/3253474-wedding/png/027-wedding invitation.png">我的收藏
-							> </a> <a class="list-group-item" href="${pageContext.request.contextPath}/"><img
+							> </a> <a class="list-group-item"
+						href="${pageContext.request.contextPath}/"><img
 							src="icon/3253474-wedding/png/025-calendar.png">回首頁</a>
 				</div>
 			</div>
@@ -80,11 +84,21 @@
 				<h2>基本資料&nbsp</h2>
 				<a href="newlywedInfo.jsp"><img src="icon/document.png"
 					width="30" class="editInfo"></a>
-				<div class="newlyWed">會員號碼 :  <span>${LoginOK.m_No}</span></div>
-				<div class="newlyWed">Email(信箱) :  <span>${LoginOK.m_Id}</span></div>
-				<div class="newlyWed">手機號碼 :  <span>${LoginOK.m_Phone}</span></div>
-				<div class="newlyWed">真實姓名 :  <span>${LoginOK.m_Name}</span></div>
-				<div class="newlyWed">聯絡時間 :  <span>${LoginOK.m_Availabletime}</span></div>
+				<div class="newlyWed">
+					會員號碼 : <span>${LoginOK.m_No}</span>
+				</div>
+				<div class="newlyWed">
+					Email(信箱) : <span>${LoginOK.m_Id}</span>
+				</div>
+				<div class="newlyWed">
+					手機號碼 : <span>${LoginOK.m_Phone}</span>
+				</div>
+				<div class="newlyWed">
+					真實姓名 : <span>${LoginOK.m_Name}</span>
+				</div>
+				<div class="newlyWed">
+					聯絡時間 : <span>${LoginOK.m_Availabletime}</span>
+				</div>
 
 			</div>
 		</div>
