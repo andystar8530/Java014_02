@@ -10,12 +10,15 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Page Title - SB Admin</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
 	crossorigin="anonymous"></script>
+	<style>
+	.bgcolor{background:#FFE4E1}
+	</style>
 </head>
-<body class="bg-primary"
+<body class="bgcolor"
 	onload="javascript:document.insertMemberFormA.mId.focus();">
 	<jsp:include page="/fragment/topMVC.jsp" />
 	<div id="layoutAuthentication">
@@ -82,18 +85,14 @@
 			</main>
 		</div>
 		<div id="layoutAuthentication_footer">
-			<footer class="py-4 bg-light mt-auto">
-				<div class="container-fluid">
-					<div
-						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
-						<div>
-							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
-								&amp; Conditions</a>
-						</div>
-					</div>
-				</div>
-			</footer>
+			<footer class="py-5 bg-light ">
+      <div class="container">
+        <p class="m-0 text-center text-dark">
+          Copyright &copy; Your Website 2020
+        </p>
+      </div>
+      <!-- /.container -->
+    </footer>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
