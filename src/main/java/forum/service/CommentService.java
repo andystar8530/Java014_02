@@ -6,23 +6,25 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import forum.dao.CommentDao;
 import forum.dao.ForumDao;
+import forum.model.CommentBean;
 import forum.model.ForumBean;
 import forum.util.HibernateUtils;
 
-public class ForumService {
-  ForumDao dao;
+public class CommentService {
+  CommentDao dao;
   SessionFactory factory;
   
-  public ForumService(){
-	  dao =new ForumDao();
+  public CommentService(){
+	  dao =new CommentDao();
 	  factory=HibernateUtils.getSessionFactory();
   }
-  public void persist(ForumBean fb) {
-	  dao.persist(fb);
+  public void persist(CommentBean cb) {
+	  dao.persist(cb);
   }
-  public List<ForumBean> selectAll(){
-	  List<ForumBean> li=null;
+  public List<CommentBean> selectAll(){
+	  List<CommentBean> li=null;
 	  Session session =factory.getCurrentSession();
 	  Transaction tx =null;
 	  try {
@@ -37,9 +39,9 @@ public class ForumService {
 	}
 	  return li;
   }
-  public ForumBean getMB(Integer f_Id){
+  public CommentBean getMB(Integer c_Id){
 	  
-	  return dao.getMB(f_Id);
+	  return dao.getMB(c_Id);
 	  
   }
   
