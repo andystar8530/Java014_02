@@ -2,9 +2,21 @@ package _03_listProducts.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Product")
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int p_Id;
 	private String p_Category;
 	private String p_Name;
@@ -22,11 +34,14 @@ public class ProductBean implements Serializable{
 	private Blob p_Pic3;
 	private String p_FileName3;
 	private String p_Note;
+	private Timestamp p_CreateTime;
+	private Timestamp p_UpdataTime;
 	
 	
 	public ProductBean(int p_Id, String p_Category, String p_Name, Blob p_Cover, String p_FileName, int p_Pdqty,
 			int p_Pdsum, int p_Stock, int p_Sdqty, Double p_Price, Blob p_Pic1, String p_FileName1, Blob p_Pic2,
-			String p_FileName2, Blob p_Pic3, String p_FileName3, String p_Note) {
+			String p_FileName2, Blob p_Pic3, String p_FileName3, String p_Note, Timestamp p_CreateTime,
+			Timestamp p_UpdataTime) {
 		super();
 		this.p_Id = p_Id;
 		this.p_Category = p_Category;
@@ -45,6 +60,8 @@ public class ProductBean implements Serializable{
 		this.p_Pic3 = p_Pic3;
 		this.p_FileName3 = p_FileName3;
 		this.p_Note = p_Note;
+		this.p_CreateTime = p_CreateTime;
+		this.p_UpdataTime = p_UpdataTime;
 	}
 	public ProductBean(){
 		
@@ -155,6 +172,18 @@ public class ProductBean implements Serializable{
 		this.p_Note = p_Note;
 	}
 	
+	public Timestamp getP_CreateTime() {
+		return p_CreateTime;
+	}
+	public void setP_CreateTime(Timestamp p_CreateTime) {
+		this.p_CreateTime = p_CreateTime;
+	}
+	public Timestamp getP_UpdataTime() {
+		return p_UpdataTime;
+	}
+	public void setP_UpdataTime(Timestamp p_UpdataTime) {
+		this.p_UpdataTime = p_UpdataTime;
+	}
 	public String getDescription() {
 		return getP_Name()+ " "
 				+ getP_Note().substring(0, Math.min(3, getP_Note().length()));

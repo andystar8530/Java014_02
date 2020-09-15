@@ -36,7 +36,7 @@
 
 	<!-- Navigation -->
 	<!-- 引入共同的頁首 -->
-	<%-- <jsp:include page="/fragment/topMVC.jsp" /> --%>
+	<jsp:include page="/fragment/topMVC.jsp" />
 
 	<!-- Page Content -->
 	<div class="container">
