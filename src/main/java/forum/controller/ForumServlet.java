@@ -17,11 +17,19 @@ import forum.model.ForumBean;
 import forum.service.ForumService;
 
 
-@WebServlet("/ForumServlet")
+@WebServlet("/forum/ForumServlet")
 public class ForumServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+	
+	 public ForumServlet() {
+	        super();
+	        
+	    }
+	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			doPost(request,response);
+		}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		Map<String,String> errorMessage =new HashMap<>();
 		HttpSession session = request.getSession();
 		request.setAttribute("ErrorMsgKey",errorMessage);
@@ -41,8 +49,8 @@ public class ForumServlet extends HttpServlet {
 				ForumService service=new ForumService();
 				service.persist(fb);
 				request.setAttribute("ForumBean", fb);
-				ForumBean mb= service.getMB(f_Id);
-				session.setAttribute("messageBoard", mb);
+//				ForumBean mb= service.getMB(f_Id);
+//				session.setAttribute("messageBoard", mb);
 				RequestDispatcher rd =request.getRequestDispatcher("/_forum/messageboard.jsp");
 				rd.forward(request, response);
 				return;

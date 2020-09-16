@@ -42,5 +42,8 @@ public class ForumService {
 	  return dao.getMB(f_Id);
 	  
   }
+public ForumBean selectOne(int f_id) {
+	return dao.getMB(f_id);
+}
   
 }

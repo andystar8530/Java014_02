@@ -28,6 +28,6 @@
 
 		<!-- 3. 宣告程式使用的永續類別 -->
 		<mapping class="forum.model.ForumBean" />
-<!-- 		<mapping class="forum.model.CommentBean.java" /> -->
+		<mapping class="forum.model.CommentBean" />
 	</session-factory>
 </hibernate-configuration>

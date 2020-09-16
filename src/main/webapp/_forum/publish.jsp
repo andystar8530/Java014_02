@@ -30,7 +30,7 @@
         </select>
         <p style="font-size: 55px";>文章標題 <font margin="3" color="white" size="5">${ErrorMsgKey.TitleEmpty}</font></p>
         
-    <form action="/Java014_02/ForumServlet" method="Post">
+    <form action="${pageContext.request.contextPath}/forum/ForumServlet" method="Post">
     <input type="text" class="form-control" name="title" value="${param.title}" placeholder="您的文章標題" aria-label="title" aria-describedby="addon-wrapping">
     <p style="font-size: 55px";>文章內文</p>
     <!-- <div class="container"> -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%String path=request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +124,7 @@
               <strong class="d-block text-gray-dark p-2">可達壓</strong>
               </div>
               <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">  
-               <a class="subtitle" href="#"> ${atitle.f_Title}</a>
+               <a class="subtitle" href="<%= path %>/HomeToMes?f_id=${atitle.f_Id}"> ${atitle.f_Title}</a>
  
             </p>
             </div>

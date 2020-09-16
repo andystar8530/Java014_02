@@ -34,11 +34,11 @@ import javax.persistence.Table;
 		super();
 	}
 	
-	public CommentBean(Integer C_Id, String C_Postid, String C_Text) {
+	public CommentBean(Integer c_Id, Integer c_Postid, String c_Text) {
 		super();
-		C_Id = C_Id;
-		C_Postid = C_Postid;
-		C_Text = C_Text;
+		C_Id = c_Id;
+		C_Postid = c_Postid;
+		C_Text = c_Text;
 	}
 	
 	public Integer getC_Id() {

@@ -38,6 +38,14 @@ public ForumBean() {
 	super();
 }
 
+public Integer getF_Id() {
+	return F_Id;
+}
+
+public void setF_Id(Integer f_Id) {
+	F_Id = f_Id;
+}
+
 public ForumBean(Integer f_Id, String f_Title, String f_Text) {
 	super();
 	F_Id = f_Id;
@@ -45,12 +53,7 @@ public ForumBean(Integer f_Id, String f_Title, String f_Text) {
 	F_Text = f_Text;
 }
 
-public Integer getPostID() {
-	return F_Id;
-}
-public void setPostID(Integer F_ID) {
-	F_Id = F_ID;
-}
+
 public Integer getM_No() {
 	return M_No;
 }

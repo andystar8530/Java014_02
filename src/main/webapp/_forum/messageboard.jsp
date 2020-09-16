@@ -51,9 +51,9 @@
               <img src="https://images.zi.org.tw/applealmond/2020/03/24204140/1585053699-2349f992d655d0172069dfde6ba04f9e.jpg" alt="64x64" class="mr-2 rounded " style="width: 70px; height: 70px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17467e1f95b%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17467e1f95b%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211.828125%22%20y%3D%2216.965625%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" >
               <strong class="d-block text-gray-dark p-2  ">王狗但</strong>
             </div>
-              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray " >${param.text}</p>
+              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray " >${param.text}${fb.f_Title}</p>
             </div>
-
+			<p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray ">${fb.f_Text}</p>
             <P class="ml-5">發文時間:</P>
             <p class="ml-5">文章類別:婚禮攝影</p>
             <!-- <div class="media text-muted pt-3">
@@ -131,12 +131,12 @@
                 <span class="d-block">好猛阿 66666666666</span>
               </div>
             </div>
-            <form action="/Java014_02/CommentServlet" method="Post">
+            <form action="${pageContext.request.contextPath}/CommentServlet" method="Post">
             <small class="d-block text-right mt-3">
               <div class="input-group mb-5 mt-5 col-10">
-                <input type="text" class="form-control" placeholder="說說你的看法"  aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="說說你的看法"   value="${param.ctext}" aria-describedby="button-addon2">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-danger" type="button" id="button-addon2">留言</button>
+                  <input class="btn btn-outline-danger" onclick="window.location.href='${pageContext.request.contextPath}/CommentServlet'" type="button" id="button-addon2">留言</button>
                 </div>
               </div>
             </small>
