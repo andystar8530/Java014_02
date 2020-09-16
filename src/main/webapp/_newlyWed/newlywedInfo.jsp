@@ -29,7 +29,11 @@
 
 	<!-- Navigation -->
 	<!-- 引入共同的頁首 -->
+<<<<<<< HEAD
 	<jsp:include page="/fragment/topMVC.jsp" /> 
+=======
+	<jsp:include page="/fragment/topMVC.jsp" />
+>>>>>>> c6895be4703397e1173f7bb0e4a9324f2832ad5a
 
 	<!-- Page Content -->
 	<div class="container">

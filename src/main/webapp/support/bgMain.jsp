@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>合作廠商</title>
+<title>方案作品管理</title>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/data/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css ">
 <!-- Custom styles for this template -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/data/css/bgMain.css">
+	href="${pageContext.request.contextPath}/support/css/bgMain.css">
 
 </head>
 <body>
@@ -23,7 +23,7 @@
 	<c:set var="funcName" value="REG" scope="session" />
 	<jsp:include page="/fragment/topMVC.jsp" />
 	<h1 class="mt-4 mb-3">
-		後台 <small>方案管理</small>
+		後台 <small>方案作品管理</small>
 	</h1>
 
 	<ol class="breadcrumb">

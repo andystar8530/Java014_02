@@ -14,8 +14,9 @@
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css ">
 <!-- Custom styles for this template -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/data/css/bgMain.css">
-
+	href="${pageContext.request.contextPath}/support/css/bgMain.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/support/css/bgMall.css">
 </head>
 <body>
 
@@ -25,49 +26,38 @@
 	<h1 class="mt-4 mb-3">
 		後台 <small>商城管理</small>
 	</h1>
-	<div class="RGB">
+	<!-- container -->
+	<div class="bgMallAllDiv container">
+<!-- 	asasaas -->
 		<!-- 	選擇紐 -->
-		<div>
-			<!-- 		<ol class="breadcrumb"> -->
-			<!-- 			<li class="breadcrumb-item"><a -->
-			<%-- 				href="${pageContext.request.contextPath}/">首頁</a></li> --%>
-			<!-- 			<li class="breadcrumb-item active">商城管理</li> -->
-			<!-- 			<li>商城管理</li> -->
-			<!-- 			<li>商城管理</li> -->
-			<!-- 			<li>商城管理</li> -->
-			<!-- 			<div>asdasdas</div> -->
-			<!-- 			<a>1111111111111</a> -->
-			<!-- 		</ol> -->
-
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<a class="navbar-brand" href="#">Navbar</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarTogglerDemo02"
-					aria-controls="navbarTogglerDemo02" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-						<li class="nav-item active"><a class="nav-link" href="#">Home
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="#"
-							tabindex="-1" aria-disabled="true">Disabled</a></li>
-					</ul>
-					<form class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="search"
-							placeholder="Search">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-					</form>
+		<div class="bgMallNavDiv bgMallNavDiv d-flex justify-content-end ">
+			<div class="">
+				<div class="nav">
+					<div class="aa nav-item">
+						<a class="nav-link active" href="#">Active</a>
+					</div>
+					<div class="bb nav-item">
+						<a class="nav-link" href="#">篩選</a>
+					</div>
+					<div class="cc nav-item">
+						<a class="nav-link" href="#">新增</a>
+					</div>
+					<div class="dd nav-item">
+						<a class="nav-link" href="#">新增</a>
+					</div>
 				</div>
-			</nav>
+			</div>
+			<div class="p-2 bd-highlight">
+				<form class="form-inline my-2 my-lg-0 ">
+					<input class="form-control mr-sm-2" type="search"
+						placeholder="品名/種類/金額" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
 		</div>
 		<!-- 	選擇紐結束 -->
 		<!-- 引入共同的頁首 -->
-		<div class="bgMainDiv container">
+		<div class="bgMainDiv container ">
 			<jsp:include page="/support/supFragment/bgNavbar.jsp" />
 			<div class="bgMainGalleryDiv">
 				<!-- 		內容建立位置-------------- -->
@@ -79,11 +69,14 @@
 				<div class="list-group-item">sadasd</div>
 				<div class="list-group-item">sadasd</div>
 				<div class="list-group-item">sadasd</div>
+				<div class="list-group-item">sadasd</div>
+				<div class="list-group-item">sadasd</div>
 				<!-- 		內容結束---------------- -->
 			</div>
 		</div>
+
 		<!-- 	尾端選擇按鈕 -->
-		<div>
+		<div class="bgEndNav mt-auto p-2 bd-highlight">
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-end">
 					<li class="page-item disabled"><a class="page-link" href="#"
