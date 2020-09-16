@@ -71,8 +71,8 @@
 							平台說明 </a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPages">
-							<a class="dropdown-item" href="#">關於本站</a> <a
-								class="dropdown-item" href="#">最新公告</a> <a class="dropdown-item"
+							<a class="dropdown-item" href="#">關於本站</a>
+							<a class="dropdown-item" href="<c:url value='/support/news' />">最新公告</a> <a class="dropdown-item"
 								href="#">服務條款</a> <a class="dropdown-item" href="#">隱私權說明</a> <a
 								class="dropdown-item" href="#">免責聲明</a> <a class="dropdown-item"
 								href="#">問題回報</a>
