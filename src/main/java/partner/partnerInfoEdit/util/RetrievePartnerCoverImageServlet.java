@@ -16,7 +16,7 @@ import partner.partnerInfoEdit.model.PartnerBean;
 import partner.partnerInfoEdit.service.PartnerService;
 import partner.partnerInfoEdit.service.Impl.PartnerServiceImpl;
 
-@WebServlet("/util/getPartnerCoverImage")
+//@WebServlet("/util/getPartnerCoverImage")
 public class RetrievePartnerCoverImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

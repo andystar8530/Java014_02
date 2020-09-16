@@ -16,7 +16,7 @@ import partner.partnerInfoEdit.dao.Impl.PartnerDaoImpl_Jdbc;
 import partner.partnerInfoEdit.model.PartnerBean;
 
 
-@WebServlet("/displayPartnerInfo.do")
+//@WebServlet("/displayPartnerInfo.do")
 public class DisplayPartnerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

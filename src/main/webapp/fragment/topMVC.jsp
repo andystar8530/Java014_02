@@ -71,8 +71,8 @@
 							平台說明 </a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPages">
-							<a class="dropdown-item" href="#">關於本站</a> <a
-								class="dropdown-item" href="#">最新公告</a> <a class="dropdown-item"
+							<a class="dropdown-item" href="#">關於本站</a>
+							<a class="dropdown-item" href="<c:url value='/support/news' />">最新公告</a> <a class="dropdown-item"
 								href="#">服務條款</a> <a class="dropdown-item" href="#">隱私權說明</a> <a
 								class="dropdown-item" href="#">免責聲明</a> <a class="dropdown-item"
 								href="#">問題回報</a>
@@ -99,9 +99,9 @@
 							</li>
 						</c:if>
 						<c:if test="${LoginOK.m_Code == 2}">
-							<li class="nav-item"><a class="nav-link fadeInLeft" href="#">管理頁面</a></li>
+							<li class="nav-item"><a class="nav-link wow fadeInLeft" href="<c:url value='/support/bgMain.jsp' />">管理頁面</a></li>
 						</c:if>
-						<li class="nav-item"><a class="nav-link fadeInLeft"
+						<li class="nav-item"><a class="nav-link wow fadeInLeft"
 							href="<c:url value='/_02_login/logout.jsp' />"> 登出 </a></li>
 
 						<li class="nav-item"><img height='40px' width='40px'

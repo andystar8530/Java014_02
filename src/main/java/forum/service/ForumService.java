@@ -21,13 +21,13 @@ public class ForumService {
   public void persist(ForumBean fb) {
 	  dao.persist(fb);
   }
-  public List<ForumBean> select(int page){
-	  List<ForumBean> bean=null;
+  public List<ForumBean> selectAll(){
+	  List<ForumBean> li=null;
 	  Session session =factory.getCurrentSession();
 	  Transaction tx =null;
 	  try {
 		tx =session.beginTransaction();
-		  bean =dao.getAll(page);
+		  li =dao.getAll();
 		  tx.commit();
 	} catch (Exception e) {
 		if(tx !=null) {
@@ -35,7 +35,7 @@ public class ForumService {
 		}
 		e.printStackTrace();
 	}
-	  return bean;
+	  return li;
   }
   public ForumBean getMB(Integer f_Id){
 	  
@@ -43,7 +43,4 @@ public class ForumService {
 	  
   }
   
-  public List<ForumBean> getAllTalk(int page){
-	  return select(page);
-  }
 }

@@ -37,7 +37,7 @@ public class RetrievePageProducts extends HttpServlet {
 		if (session == null) {
 			// 請使用者登入
 			response.sendRedirect(response.encodeRedirectURL(
-					request.getContextPath() + "/_02_login/login.jsp"));
+					request.getContextPath() + "/ch02_login/login.jsp"));
 			return;
 		}
 		// 登入成功後，Session範圍內才會有LoginOK對應的MemberBean物件
@@ -82,11 +82,11 @@ public class RetrievePageProducts extends HttpServlet {
 		// service.setPageNo(pageNo);
 		request.setAttribute("baBean", service);
 		// service.getPageBooks()方法開始讀取一頁的書籍資料
-		Map<Integer, ProductBean> bookMap = service.getPageProducts(pageNo);
+		Map<Integer, ProductBean> productMap = service.getPageProducts(pageNo);
 		session.setAttribute("pageNo", String.valueOf(pageNo));
 		request.setAttribute("totalPages", service.getTotalPages());
 		// 將讀到的一頁資料放入request物件內，成為它的屬性物件
-		session.setAttribute("products_DPP", bookMap);
+		session.setAttribute("products_DPP", productMap);
 
 		// 使用Cookie來儲存目前讀取的網頁編號，Cookie的名稱為memberId + "pageNo"
 		// -----------------------

@@ -29,8 +29,7 @@ import partner.partnerInfoEdit.service.Impl.PartnerServiceImpl;
 
 @MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
 		* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
-@WebServlet("/partnerInfoEdit.do")
-//@WebServlet("/partner/partnerInfoEdit.do")
+//@WebServlet("/partnerInfoEdit.do")
 public class EditPartnerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -207,7 +206,7 @@ public class EditPartnerInfo extends HttpServlet {
 				}
 				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 				PartnerBean bean = new PartnerBean(
-						0, member.getM_No(), p_storeName, sta_blob, cov_blob, p_service, 
+						0, 0, p_storeName, sta_blob, cov_blob, p_service, 
 						p_info, parea, 0.0, p_lineId, p_bankAcc,
 						Integer.parseInt(p_hRate), ts, ts, cov_fileName,
 						sta_fileName);

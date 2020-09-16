@@ -31,17 +31,12 @@ public class ForumDao {
 		e.printStackTrace();
 	}
   }
-  public List<ForumBean> getAll(int page){
-	  int getpage=(page-1)*10;
+  public List<ForumBean> getAll(){
 	  List<ForumBean> li=new ArrayList<>();
 	  String hql ="From ForumBean";
 	  Session session =factory.getCurrentSession();
 	  li=session.createQuery(hql).list();
-	  List<ForumBean> li10 =new ArrayList<>();
-	  for(int i=getpage;i<getpage+10&&i<li.size();i++) {
-		  li10.add(li.get(i));
-	  }
-	  return li10;
+	  return li;
   }
   public ForumBean getMB(Integer f_Id){
 	  ForumBean fb=new ForumBean();
@@ -60,4 +55,5 @@ public class ForumDao {
 	}
 	  return fb;
   }
+  
 }

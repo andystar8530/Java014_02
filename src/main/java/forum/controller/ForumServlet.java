@@ -41,7 +41,7 @@ public class ForumServlet extends HttpServlet {
 				ForumService service=new ForumService();
 				service.persist(fb);
 				request.setAttribute("ForumBean", fb);
-				ForumBean mb= service.getMB(1);
+				ForumBean mb= service.getMB(f_Id);
 				session.setAttribute("messageBoard", mb);
 				RequestDispatcher rd =request.getRequestDispatcher("/_forum/messageboard.jsp");
 				rd.forward(request, response);

@@ -25,7 +25,7 @@
           <div class="form-group" >
             <label for="exampleInputPMId">會員編號</label>
             <input type="text" class="form-control " id="exampleInputPMId" aria-describedby="PMIdHelp" 
-           name="p_mId" value="${partnerBean.p_mId}"  readonly="readonly"  > 
+           name="p_mId" value="${partnerBean.memberBean.m_No}"  readonly="readonly"  > 
           </div>
           <div class="form-group" >
             <div><label for="exampleInputInfo">簡介</label></div>

@@ -28,5 +28,6 @@
 
 		<!-- 3. 宣告程式使用的永續類別 -->
 		<mapping class="ch01_h_register.model.MemberBean" />
+		<mapping class="partner_h.partnerInfoEdit_h.model.PartnerBean" />
 	</session-factory>
 </hibernate-configuration>
