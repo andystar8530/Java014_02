@@ -14,7 +14,7 @@
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css ">
 <!-- Custom styles for this template -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/data/css/bgMain.css">
+	href="${pageContext.request.contextPath}/support/css/bgMain.css">
 
 </head>
 <body>

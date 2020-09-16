@@ -1,0 +1,84 @@
+.bgMallAllDiv {
+	/* 	display: flex; */
+	/* 	border-radius: 20px; */
+	
+}
+
+.bgMallNavDiv {
+	/* 	border-radius: 30px 30px; */
+	/* 	margin: 0;  */
+	/* 	padding: 0; */
+	background-color: #b87333;
+}
+
+.bgMainGalleryDiv {
+	width: 100%;
+	padding: 0px 10px 0px 20px;
+}
+
+.bgMallSearchNavDiv {
+	/* 		margin: 0;  */
+	/* 	padding: 0; */
+	
+}
+
+.bgMainGalleryDivIn {
+	display: flex;
+	Height: 100px;
+	background-color: #804000;
+	/* 	padding: 20px 20px 20px 20px; */
+	background-color: #804000;
+}
+
+.SearchDiv1 {
+	width: 80px;
+	background-color: #800040;
+	border-radius: 10px 10px 0 0;
+	/* 	transform: translate(-50%, -50%); */
+}
+
+.SearchDiv2 {
+	width: 80px;
+	background-color: #00ff00;
+	border-radius: 10px 10px 0 0;
+}
+
+.SearchDiv3 {
+	width: 80px;
+	background-color: #ff8000;
+	border-radius: 10px 10px 0 0;
+}
+
+.SearchDiv4 {
+	width: 80px;
+	background-color: #ff8000;
+	border-radius: 10px 10px 0 0;
+}
+
+.SearchDiv5 {
+	padding: 0px 10px 0px 20px;
+}
+
+.bgMainGalleryDivIn1 {
+	Height: 100%;
+	width: 15%;
+}
+
+.bgMainGalleryDivIn2 {
+	Height: 100%;
+	width: 15%;
+}
+
+.bgMainGalleryDivIn3 {
+	Height: 100%;
+	width: 55%;
+}
+
+.bgMainGalleryDivIn4 {
+	height: 100%;
+	width: 15%;
+}
+
+.aa {
+	
+}

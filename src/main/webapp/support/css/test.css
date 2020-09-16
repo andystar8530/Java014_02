@@ -1,0 +1,30 @@
+.aa {
+	width: 200px;
+	height: 60px;
+	background-color: pink;
+	display: flex;
+}
+
+.bb {
+	/* 	width:200px; */
+	/* 	height:60px; */
+	background-color: #800040;
+	;
+}
+
+.cc {
+	/* 	width:200px; */
+	/* 	height:60px; */
+	background-color: #b87333;
+	;
+}
+
+.dd {
+	/* 	width:200px; */
+	/* 	height:60px; */
+	background-color: #00ff00;
+}
+
+.ee {
+	background-color: #ff8000;
+}

@@ -1,0 +1,16 @@
+.bgMainDiv {
+	display: flex;
+/* 	padding-bottom: 20px; */
+	background-color:pink;
+/* 	margin: 0;  */
+/* 	padding: -20px 0 0 0; */
+	
+}
+.bgMainGalleryDiv{
+	padding-left: 20px;
+	background-color:rgb(232,106,192);
+}
+
+.bgEndNav{
+	background-color:#000000;
+}

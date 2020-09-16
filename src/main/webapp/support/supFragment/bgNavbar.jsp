@@ -26,31 +26,32 @@
 
 <!-- Custom styles for this template -->
 <link href="../_newlyWed/css/modern-business.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/data/css/bgNavbar.css"
+<link href="${pageContext.request.contextPath}/support/css/bgNavbar.css"
 	rel="stylesheet">
 </head>
 
 <body>
 	<!-- Content Row -->
-<!-- 	mb-4 list-group -->
+	<!-- 	mb-4 list-group -->
 	<div class="bgbar row col-md-auto list-group ">
-		<a class="list-group-item " href="${pageContext.request.contextPath}/support/bgController.jsp">
+		<a class="list-group-item "
+			href="${pageContext.request.contextPath}/support/bgController.jsp">
 			<img src="./Image/duck.jpg" width="80" style="border-radius: 50%;"
-				id="partner-icon">
-			<div>後台-可達鴨 尼好</div>
+			id="partner-icon">
+			後台-可達鴨 尼好
 
-		</a>
-		<a class="list-group-item" href="${pageContext.request.contextPath}/support/bgMain.jsp">
-			<img src="icon/3253474-wedding/png/007-house.png">方案/作品
-		</a>
-		<a class="list-group-item" href="${pageContext.request.contextPath}/support/bgReport.jsp">
-			<img src="icon/3253474-wedding/png/015-picture.png">會員/文章
-		</a>
-		<a class="list-group-item" href="${pageContext.request.contextPath}/support/bgMall.jsp">
+		</a> <a class="list-group-item"
+			href="${pageContext.request.contextPath}/support/bgMain.jsp"> <img
+			src="icon/3253474-wedding/png/007-house.png">方案/作品
+		</a> <a class="list-group-item"
+			href="${pageContext.request.contextPath}/support/bgReport.jsp"> <img
+			src="icon/3253474-wedding/png/015-picture.png">會員/文章
+		</a> <a class="list-group-item"
+			href="${pageContext.request.contextPath}/support/bgMall/bgMall.jsp">
 			<img src="icon/3253474-wedding/png/034-marriage certification.png">商城商品
 
-		</a>
-		<a class="list-group-item list-group-1" href="${pageContext.request.contextPath}/support/bgArticleEdit.jsp">
+		</a> <a class="list-group-item list-group-1"
+			href="${pageContext.request.contextPath}/support/bgArticleEdit.jsp">
 			<img src="icon/3253474-wedding/png/001-clipboard.png">公版文管理
 		</a>
 	</div>
